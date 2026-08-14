@@ -1,0 +1,2373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MONAMI Lab at Jeonbuk National University develops high-fidelity multiphysics, reactor digital twins, and HPC particle methods for nuclear systems.">
+  <meta name="theme-color" content="#0b1f3a">
+  <title>MONAMI Lab | Multiphysics of Nuclear Analysis, Modeling and Innovation</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('color-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+    } catch (_) {
+      document.documentElement.dataset.theme = 'light';
+    }
+  </script>
+
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --navy-2: #15365f;
+      --teal: #0f7b83;
+      --sky: #e8f3f6;
+      --ink: #1a2433;
+      --muted: #5d6877;
+      --line: #dfe5eb;
+      --surface: #ffffff;
+      --surface-soft: #f6f8fa;
+      --shadow: 0 18px 45px rgba(11, 31, 58, 0.10);
+      --radius: 20px;
+      --max-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: clip;
+      color: var(--ink);
+      background: var(--surface);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 8px;
+      padding: 10px 14px;
+      color: #fff;
+      background: var(--navy);
+      z-index: 9999;
+    }
+
+    .skip-link:focus { left: 8px; }
+
+    /* Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(223, 229, 235, 0.85);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+    }
+
+    .navbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: linear-gradient(140deg, var(--navy), var(--teal));
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #344154;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--navy);
+      background: var(--surface-soft);
+    }
+
+    .theme-toggle {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--navy);
+      background: var(--surface);
+      font: inherit;
+      font-size: 19px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      background: var(--surface-soft);
+    }
+
+    .menu-button {
+      display: none;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--navy);
+      background: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 96px 0 86px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(15, 123, 131, 0.13), transparent 30%),
+        radial-gradient(circle at 12% 15%, rgba(21, 54, 95, 0.10), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -130px;
+      bottom: -190px;
+      width: 460px;
+      height: 460px;
+      border: 1px solid rgba(15, 123, 131, 0.15);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 54px rgba(15, 123, 131, 0.04),
+        0 0 0 108px rgba(15, 123, 131, 0.025);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(260px, 1.0fr);
+      align-items: center;
+      gap: 72px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--teal);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 22px;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(46px, 7vw, 76px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-subtitle {
+      max-width: 760px;
+      margin-bottom: 20px;
+      color: var(--navy-2);
+      font-size: clamp(20px, 2.5vw, 29px);
+      font-weight: 720;
+      line-height: 1.35;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-about-me {
+      max-width: 735px;
+      margin-bottom: 30px;
+    }
+
+    .hero-about-me .section-kicker {
+      margin-bottom: 12px;
+    }
+
+    .hero-about-me p:not(.section-kicker) {
+      margin-bottom: 11px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .hero-about-me p:last-child { margin-bottom: 0; }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 11px 17px;
+      border: 1px solid var(--navy);
+      border-radius: 12px;
+      color: #fff;
+      background: var(--navy);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 760;
+      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(11, 31, 58, 0.15);
+    }
+
+    .button.secondary {
+      color: var(--navy);
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .profile-card {
+      position: relative;
+      padding: 14px;
+      border: 1px solid rgba(223, 229, 235, 0.95);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      transform: rotate(1.2deg);
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: 24px -18px -18px 24px;
+      z-index: -1;
+      border-radius: 30px;
+      background: linear-gradient(140deg, rgba(21, 54, 95, 0.18), rgba(15, 123, 131, 0.18));
+    }
+
+    .profile-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+      background: #e8edf1;
+    }
+
+    .profile-caption {
+      padding: 16px 8px 8px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .lab-logo-card {
+      position: relative;
+      padding: clamp(24px, 4vw, 44px);
+      border: 1px solid rgba(223, 229, 235, 0.95);
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--shadow);
+    }
+
+    .lab-logo-card::before {
+      content: "";
+      position: absolute;
+      inset: 24px -18px -18px 24px;
+      z-index: -1;
+      border-radius: 32px;
+      background: linear-gradient(140deg, rgba(21, 54, 95, 0.18), rgba(0, 177, 211, 0.18));
+    }
+
+    .lab-logo-card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, .62fr) minmax(0, 1.38fr);
+      gap: 34px;
+      align-items: stretch;
+    }
+
+    .person-photo,
+    .person-card,
+    .recruit-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: 0 10px 28px rgba(11, 31, 58, .06);
+    }
+
+    .person-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .person-card { padding: clamp(26px, 4vw, 42px); }
+    .person-card h3 { margin-bottom: 4px; color: var(--navy); font: 700 32px/1.2 Georgia, "Times New Roman", serif; }
+    .person-role { margin-bottom: 20px; color: var(--teal); font-weight: 800; }
+    .person-card p { color: var(--muted); }
+    .person-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+
+    .recruit-card {
+      margin-top: 24px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(15,123,131,.09), rgba(21,54,95,.06));
+    }
+
+    .recruit-card h3 { margin-bottom: 7px; color: var(--navy); }
+    .recruit-card p { margin-bottom: 0; color: var(--muted); }
+
+    /* Shared sections */
+    section { padding: 88px 0; }
+    section.soft { background: var(--surface-soft); }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 56px;
+      margin-bottom: 42px;
+      align-items: end;
+    }
+
+    .section-heading > * {
+      min-width: 0;
+    }
+
+    .section-heading h2,
+    .section-intro {
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 49px);
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+    }
+
+    .section-intro {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* Research */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .research-card {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      min-height: 350px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 8px 26px rgba(11, 31, 58, 0.05);
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .research-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 38px rgba(11, 31, 58, 0.10);
+    }
+
+    .research-card:focus-visible {
+      outline: 3px solid rgba(15, 123, 131, .35);
+      outline-offset: 4px;
+    }
+
+    .research-visual {
+      position: relative;
+      height: 142px;
+      margin-bottom: 26px;
+      overflow: hidden;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #eef3f8, #e5f2f3);
+    }
+
+    .research-visual::before,
+    .research-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(11, 31, 58, 0.22);
+    }
+
+    .visual-multiphysics::before {
+      width: 112px;
+      height: 112px;
+      left: 42px;
+      top: 15px;
+      box-shadow: 88px 0 0 -18px rgba(15, 123, 131, 0.14);
+    }
+
+    .visual-multiphysics::after {
+      width: 82px;
+      height: 82px;
+      left: 132px;
+      top: 29px;
+      border-color: rgba(15, 123, 131, 0.55);
+    }
+
+    .visual-particles {
+      background-image:
+        radial-gradient(circle, rgba(11,31,58,.45) 0 3px, transparent 4px),
+        radial-gradient(circle, rgba(15,123,131,.55) 0 3px, transparent 4px),
+        linear-gradient(135deg, #eef3f8, #e5f2f3);
+      background-position: 0 0, 17px 17px, 0 0;
+      background-size: 34px 34px, 34px 34px, auto;
+    }
+
+    .visual-particles::before {
+      width: 240px;
+      height: 80px;
+      left: 45px;
+      top: 34px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.80);
+      transform: rotate(-8deg);
+    }
+
+    .visual-hpc::before {
+      width: 54px;
+      height: 54px;
+      left: 62px;
+      top: 44px;
+      border-radius: 11px;
+      box-shadow:
+        76px 0 0 -1px rgba(15, 123, 131, 0.18),
+        152px 0 0 -1px rgba(21, 54, 95, 0.12);
+    }
+
+    .visual-hpc::after {
+      width: 190px;
+      height: 1px;
+      left: 92px;
+      top: 71px;
+      border: 0;
+      border-top: 2px dashed rgba(15, 123, 131, 0.50);
+      border-radius: 0;
+    }
+
+    .visual-digital::before {
+      width: 116px;
+      height: 116px;
+      left: 92px;
+      top: 12px;
+      border-radius: 17px;
+      transform: rotate(45deg);
+      border-color: rgba(15, 123, 131, 0.50);
+    }
+
+    .visual-digital::after {
+      width: 52px;
+      height: 52px;
+      left: 124px;
+      top: 44px;
+      border-color: rgba(11, 31, 58, 0.48);
+      box-shadow: 0 0 0 20px rgba(255,255,255,.42);
+    }
+
+    .research-number {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+    }
+
+    .research-card h3 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: 21px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    .research-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* Highlight */
+    .highlight {
+      flex: 0 0 100%;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      scroll-snap-align: start;
+    }
+
+    .news-carousel {
+      position: relative;
+    }
+
+    .news-track {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      padding: 4px 2px 22px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .news-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .news-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .news-heading h2 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1;
+    }
+
+    .news-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .news-control {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--navy);
+      background: var(--surface);
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, color .18s ease;
+    }
+
+    .news-control:hover {
+      transform: translateY(-2px);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .highlight-graphic.news-image {
+      background: var(--surface-soft);
+    }
+
+    .highlight-graphic.news-image img {
+      width: 100%;
+      height: 100%;
+      padding: 18px;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .highlight-graphic.news-image.news-photo img {
+      padding: 0;
+      object-fit: cover;
+    }
+
+    .coming-soon-graphic {
+      display: grid;
+      place-items: center;
+    }
+
+    .coming-soon-graphic span {
+      position: relative;
+      z-index: 1;
+      padding: 10px 15px;
+      border: 1px solid rgba(255, 255, 255, .42);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, .08);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .16em;
+    }
+
+    .highlight-graphic {
+      position: relative;
+      min-height: 390px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(255,255,255,.03), rgba(255,255,255,.03)),
+        linear-gradient(145deg, var(--navy), #123e62 57%, var(--teal));
+    }
+
+    .core-ring,
+    .core-ring::before,
+    .core-ring::after {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.33);
+      content: "";
+    }
+
+    .core-ring {
+      width: 230px;
+      height: 230px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 70px rgba(106, 215, 221, 0.18);
+    }
+
+    .core-ring::before { inset: 35px; }
+    .core-ring::after { inset: 78px; background: rgba(255,255,255,.07); }
+
+    .core-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, #000 0 52%, transparent 76%);
+    }
+
+    .highlight-copy {
+      padding: clamp(34px, 6vw, 64px);
+    }
+
+    .highlight-copy h3 {
+      margin-bottom: 18px;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+
+    .highlight-copy p { color: var(--muted); }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tag-list li {
+      padding: 7px 10px;
+      border: 1px solid #cfdde1;
+      border-radius: 999px;
+      color: #31505d;
+      background: #f1f7f8;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .news-status {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: .08em;
+    }
+
+    /* Experience */
+    .experience-subheading {
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .publication-subheading {
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .publication-subheading.minor {
+      font-size: 17px;
+    }
+
+    .conference-group-heading {
+      margin: 0 0 18px;
+      color: var(--teal);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      letter-spacing: .01em;
+    }
+
+    #experience .section-heading {
+      grid-template-columns: 1fr;
+      margin-bottom: 28px;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 145px;
+      top: 12px;
+      bottom: 12px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 52px;
+      position: relative;
+      padding: 0 0 30px;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 139px;
+      top: 7px;
+      width: 13px;
+      height: 13px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 1px var(--teal);
+    }
+
+    .timeline-date {
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .timeline-content {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .timeline-item:last-child .timeline-content { border-bottom: 0; }
+
+    .timeline-content h3 {
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .timeline-place {
+      margin-bottom: 0;
+      color: #33465a;
+      font-weight: 700;
+    }
+
+    .timeline-content p {
+      max-width: 780px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* Publications */
+    .publication-list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .publication-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 22px;
+      align-items: start;
+      padding: 13px 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      transition: border-color 150ms ease, transform 150ms ease;
+    }
+
+    .publication-item:hover {
+      transform: translateX(3px);
+      border-color: #b9cbd0;
+    }
+
+    .publication-item.with-figure {
+      grid-template-columns: 80px 225px minmax(0, 1fr) auto;
+      column-gap: 0px;
+    }
+
+    .publication-item.with-figure > div:nth-of-type(3) {
+      margin-left: 20px;
+    }
+
+    .publication-year {
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .publication-number {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--navy);
+      font-size: 16px;
+      letter-spacing: .04em;
+    }
+
+    .publication-figure {
+      width: 225px;
+      height: 165px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--surface-soft);
+      flex-shrink: 0;
+    }
+
+    .publication-figure img,
+    .publication-figure video {
+      width: 100%;
+      height: 100%;
+      padding: 4px;
+      object-fit: contain;
+      object-position: center;
+      background: #fff;
+      cursor: zoom-in;
+    }
+
+    .featured-publications {
+      margin: 0 0 54px;
+    }
+
+    .featured-publications-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .featured-publications-head h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .featured-publications-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .featured-publications-heading-copy {
+      display: grid;
+      gap: 5px;
+    }
+
+    .featured-publications-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .featured-paper-track {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      padding: 4px 2px 18px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .featured-paper-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .featured-paper {
+      flex: 0 0 100%;
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: 0 14px 36px rgba(19, 47, 67, .08);
+      scroll-snap-align: start;
+    }
+
+    .featured-paper-page {
+      height: min(760px, 78vw);
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-soft);
+    }
+
+    .featured-paper-page img {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      object-fit: contain;
+      background: #fff;
+      cursor: zoom-in;
+      transition: transform .2s ease;
+    }
+
+    .featured-paper:hover .featured-paper-page img {
+      transform: scale(1.015);
+    }
+
+    .featured-paper-meta {
+      margin: 0;
+      padding: 22px 26px 25px;
+    }
+
+    .featured-paper-meta span {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+
+    .featured-paper-meta h4 {
+      margin: 7px 0 8px;
+      color: var(--navy);
+      font-size: 20px;
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
+    .featured-paper-summary {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .featured-paper-meta a {
+      display: inline-block;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .featured-publications-status {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 760px) {
+      .featured-publications-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .featured-paper-page {
+        height: min(620px, 118vw);
+      }
+
+      .featured-paper-meta {
+        padding: 20px 20px 23px;
+      }
+    }
+
+    .image-lightbox {
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 34px;
+      background: rgba(4, 13, 22, .88);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .2s ease, visibility .2s ease;
+    }
+
+    .image-lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .image-lightbox img,
+    .image-lightbox video {
+      display: block;
+      max-width: min(1200px, 92vw);
+      max-height: 88vh;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .45);
+      object-fit: contain;
+      transform: scale(.97);
+      transition: transform .2s ease;
+    }
+
+    .image-lightbox.open img,
+    .image-lightbox.open video {
+      transform: scale(1);
+    }
+
+    .image-lightbox [hidden] {
+      display: none;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .25);
+      color: #fff;
+      font: 300 30px/1 sans-serif;
+      cursor: pointer;
+    }
+
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      .image-lightbox {
+        padding: 20px;
+      }
+
+      .image-lightbox img,
+      .image-lightbox video {
+        max-width: 96vw;
+        max-height: 82vh;
+      }
+    }
+
+    .publication-placeholder {
+      display: grid;
+      place-items: center;
+      border: 1px dashed #b8cbd0;
+      color: var(--teal);
+      background:
+        linear-gradient(135deg, rgba(15,123,131,.08), rgba(13,35,55,.04));
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .06em;
+    }
+
+    .publication-title {
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .publication-meta {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .best-paper-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 10px 5px;
+      border: 1px solid #c78b24;
+      border-radius: 7px;
+      color: #714509;
+      background: #fff3ce;
+      box-shadow: 0 4px 12px rgba(143, 91, 12, .12);
+      font-family: "Times New Roman", Times, serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .best-poster-badge,
+    .featured-cover-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 10px 5px;
+      border-radius: 7px;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .best-poster-badge {
+      border: 1px solid #9ba6af;
+      color: #46515a;
+      background: linear-gradient(135deg, #f8fafb, #dce2e6);
+      box-shadow: 0 4px 12px rgba(56, 69, 79, .12);
+    }
+
+    .featured-cover-badge {
+      border: 1px solid #6f86c6;
+      color: #263f83;
+      background: #e8edff;
+      box-shadow: 0 4px 12px rgba(54, 76, 146, .14);
+    }
+
+    .featured-cover-badge:hover {
+      border-color: #405da9;
+      background: #dce4ff;
+    }
+
+    .publication-authors {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .publication-journal {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .publication-link {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .publication-link:hover {
+      color: #fff;
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .publication-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Awards */
+    .award-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .award-card {
+      padding: 24px;
+      border-top: 3px solid var(--teal);
+      border-radius: 0 0 15px 15px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(11,31,58,.06);
+    }
+
+    .award-card .year {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .award-card h3 {
+      margin: 8px 0 7px;
+      color: var(--navy);
+      font-size: 17px;
+    }
+
+    .award-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Contact */
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 50px;
+      padding: clamp(34px, 6vw, 64px);
+      border-radius: 28px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--navy), #143c62 70%, var(--teal));
+    }
+
+    .contact-panel h2 { color: #fff; }
+    .contact-panel p { color: rgba(255,255,255,.76); }
+
+    .contact-details {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-map {
+      width: 100%;
+      min-height: 240px;
+      border: 0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .contact-links {
+      display: grid;
+      align-content: center;
+      gap: 10px;
+    }
+
+    .contact-links > div,
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      color: #fff;
+      background: rgba(255,255,255,.06);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .contact-links strong {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .contact-links a:hover { background: rgba(255,255,255,.13); }
+
+    footer {
+      padding: 30px 0 42px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Accessibility and responsive behavior */
+    :focus-visible {
+      outline: 3px solid rgba(15, 123, 131, 0.35);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .section-heading,
+      .highlight,
+      .contact-panel,
+      .people-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { padding-top: 72px; }
+      .hero-grid { gap: 54px; }
+      .profile-card { width: min(330px, 86%); margin: 0 auto; }
+      .lab-logo-card { width: min(440px, 92%); margin: 0 auto; }
+      .recruit-card { grid-template-columns: 1fr; }
+      .section-heading { gap: 18px; align-items: start; }
+      .highlight-graphic { min-height: 300px; }
+      .award-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .menu-button { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 65px;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 11px 12px; }
+
+      .research-grid { grid-template-columns: 1fr; }
+      .research-card { min-height: auto; }
+
+      .timeline::before { left: 6px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; padding-left: 32px; }
+      .timeline-item::before { left: 0; }
+      .timeline-date { text-align: left; }
+
+      .publication-item {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+
+      .publication-item.with-figure {
+        grid-template-columns: 1fr;
+      }
+
+      .publication-item.with-figure > div:nth-of-type(3) {
+        margin-left: 0;
+      }
+
+      .publication-figure {
+        width: 100%;
+        height: 150px;
+        margin-bottom: 8px;
+      }
+      section { padding: 70px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --teal: #54c8c1;
+      --ink: #e9f1f5;
+      --muted: #a5b8c3;
+      --line: #294553;
+      --surface: #0b151d;
+      --surface-soft: #10212b;
+      --sky: #11303a;
+      --shadow: 0 20px 48px rgba(0, 6, 12, .38);
+    }
+
+    html[data-theme="dark"] body {
+      background:
+        radial-gradient(circle at 12% 28%, rgba(38, 128, 137, .07), transparent 25%),
+        var(--surface);
+    }
+
+    html[data-theme="dark"] .site-header {
+      border-color: rgba(55, 91, 105, .72);
+      background: rgba(8, 20, 28, .9);
+    }
+
+    html[data-theme="dark"] .nav-links a,
+    html[data-theme="dark"] .menu-button,
+    html[data-theme="dark"] .theme-toggle,
+    html[data-theme="dark"] .button.secondary,
+    html[data-theme="dark"] .publication-link {
+      color: #dce8f3;
+      background-color: var(--surface);
+    }
+
+    html[data-theme="dark"] .theme-toggle {
+      border-color: rgba(84, 200, 193, .45);
+      color: #8ce1dc;
+      box-shadow: inset 0 0 18px rgba(84, 200, 193, .08);
+    }
+
+    html[data-theme="dark"] .nav-links a:hover,
+    html[data-theme="dark"] .nav-links a:focus-visible {
+      color: #8ce1dc;
+      background: #142a34;
+    }
+
+    html[data-theme="dark"] .hero {
+      background:
+        radial-gradient(circle at 85% 20%, rgba(84, 200, 193, .18), transparent 31%),
+        radial-gradient(circle at 12% 15%, rgba(48, 104, 135, .22), transparent 35%),
+        linear-gradient(180deg, #0b151d 0%, #10212b 100%);
+    }
+
+    html[data-theme="dark"] :is(
+      h1, h2, h3, h4,
+      .brand,
+      .timeline-content h3,
+      .publication-title,
+      .publication-number
+    ) {
+      color: #e8f1f8;
+    }
+
+    html[data-theme="dark"] .hero-subtitle {
+      color: #b8cbd4;
+    }
+
+    html[data-theme="dark"] .timeline-place {
+      color: #b8cbd4;
+    }
+
+    html[data-theme="dark"] .timeline-item::before {
+      border-color: #0e1d26;
+    }
+
+    html[data-theme="dark"] .experience-subheading,
+    html[data-theme="dark"] .publication-subheading {
+      color: #8ce1dc;
+    }
+
+    html[data-theme="dark"] .conference-group-heading {
+      color: #8ce1dc;
+    }
+
+    html[data-theme="dark"] .best-paper-badge {
+      border-color: #d6a64b;
+      color: #ffe4a3;
+      background: #493512;
+      box-shadow: none;
+    }
+
+    html[data-theme="dark"] .best-poster-badge {
+      border-color: #8898a4;
+      color: #e5edf2;
+      background: #34434d;
+      box-shadow: none;
+    }
+
+    html[data-theme="dark"] .featured-cover-badge {
+      border-color: #8299df;
+      color: #dce4ff;
+      background: #263765;
+      box-shadow: none;
+    }
+
+    html[data-theme="dark"] :is(
+      .research-card,
+      .timeline-content,
+      .publication-item,
+      .award-card,
+      .nav-links
+    ) {
+      border-color: #294553;
+      background-color: #10202a;
+      box-shadow: 0 10px 28px rgba(0, 7, 13, .18);
+    }
+
+    html[data-theme="dark"] .profile-card {
+      border-color: #315160;
+      background: linear-gradient(155deg, #15303a, #0b151d);
+    }
+
+    html[data-theme="dark"] section.soft {
+      background: #0e1d26;
+    }
+
+    html[data-theme="dark"] .research-visual {
+      background: linear-gradient(135deg, #17323d, #10242e);
+    }
+
+    html[data-theme="dark"] .visual-particles {
+      background-image:
+        radial-gradient(circle, rgba(150,198,211,.5) 0 3px, transparent 4px),
+        radial-gradient(circle, rgba(84,200,193,.7) 0 3px, transparent 4px),
+        linear-gradient(135deg, #17323d, #10242e);
+    }
+
+    html[data-theme="dark"] .highlight {
+      border-color: #315160;
+      background: #10202a;
+    }
+
+    html[data-theme="dark"] .highlight-graphic {
+      background:
+        linear-gradient(rgba(255,255,255,.02), rgba(255,255,255,.02)),
+        linear-gradient(145deg, #092131, #104657 57%, #267c7d);
+    }
+
+    html[data-theme="dark"] .button:not(.secondary) {
+      border-color: #4dbab5;
+      background: linear-gradient(135deg, #236e76, #318f8d);
+    }
+
+    html[data-theme="dark"] .publication-link:hover {
+      color: #071318;
+      border-color: #75d8d2;
+      background: #75d8d2;
+    }
+
+    html[data-theme="dark"] .publication-placeholder {
+      border-color: #3b6470;
+      color: #7ddbd5;
+      background: linear-gradient(135deg, rgba(52,151,157,.16), rgba(27,65,78,.2));
+    }
+
+    html[data-theme="dark"] .contact-panel {
+      border: 1px solid #346372;
+      background: linear-gradient(135deg, #092235, #104b5c 68%, #287d7d);
+      box-shadow: 0 22px 54px rgba(0, 8, 15, .34);
+    }
+
+    html[data-theme="dark"] .contact-map {
+      filter: grayscale(.18) brightness(.82) contrast(1.08);
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="#about" aria-label="MONAMI Lab home">
+        <img class="brand-logo" src="figure/monami-logo.png" alt="">
+        <span>MONAMI Lab</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-controls="nav-links" aria-expanded="false">
+        Menu
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li>
+          <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+            <span aria-hidden="true">&#9782;</span>
+          </button>
+        </li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#people">People</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#current-work">News</a></li>
+        <li><a href="#contact">Join Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="about">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Jeonbuk National University &middot; Quantum Engineering</span>
+            <h1>MONAMI Lab</h1>
+            <p class="hero-subtitle">Multiphysics Of Nuclear Analysis, Modeling and Innovation</p>
+            <div class="hero-about-me">
+              <p class="section-kicker">Our Mission</p>
+              <p>
+                We develop predictive computational technologies for nuclear systems by integrating
+                reactor physics, thermal hydraulics, structural mechanics, and high-performance computing.
+              </p>
+              <p>
+                MONAMI connects high-fidelity multiphysics, multiscale system modeling, and particle-based
+                methods to create reactor digital twins grounded in physical interpretation, verification,
+                and validation.
+              </p>
+              <p>
+                Our goal is to build reliable tools for advanced reactor analysis, severe-accident research,
+                and next-generation nuclear engineering innovation.
+              </p>
+            </div>
+            <div class="hero-actions">
+              <a class="button" href="#research">Explore Our Research</a>
+              <a class="button secondary" href="#people">Meet the Lab</a>
+              <a class="button secondary" href="#contact">Join MONAMI</a>
+            </div>
+          </div>
+
+          <figure class="lab-logo-card">
+            <img src="figure/monami-logo.png" alt="MONAMI Lab logo">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft" id="research">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Research directions</p>
+            <h2>High-fidelity computational science for reactor digital twins.</h2>
+          </div>
+          <p class="section-intro">
+            Our research integrates particle methods, reactor multiphysics, multiscale modeling, and
+            high-performance computing to develop predictive digital twins for nuclear systems.
+          </p>
+        </div>
+
+        <div class="research-grid">
+          <a class="research-card" href="research/research-direction1.html" aria-label="Learn more about digital twins for severe accidents">
+            <div class="research-visual visual-digital" aria-hidden="true"></div>
+            <span class="research-number">01 · SEVERE ACCIDENTS</span>
+            <h3>Digital Twins for Severe Accidents</h3>
+            <p>
+              Leveraging the flexibility of particle-based methods to explore diverse severe-accident
+              scenarios, including multiphase interaction, corium behavior, spreading, fragmentation,
+              and fluid-structure interaction.
+            </p>
+          </a>
+
+          <a class="research-card" href="research/research-direction2.html" aria-label="Learn more about high-fidelity reactor multiphysics analysis">
+            <div class="research-visual visual-multiphysics" aria-hidden="true"></div>
+            <span class="research-number">02 · REACTOR MULTIPHYSICS</span>
+            <h3>High-Fidelity Reactor Multiphysics Analysis</h3>
+            <p>
+              Coupling neutronics and thermal hydraulics across system, subchannel, and three-dimensional
+              models to resolve local feedback and transient behavior with high physical fidelity.
+            </p>
+          </a>
+
+          <a class="research-card" href="research/research-direction3.html" aria-label="Learn more about digital twins for advanced reactors">
+            <div class="research-visual visual-hpc" aria-hidden="true"></div>
+            <span class="research-number">03 · ADVANCED REACTORS</span>
+            <h3>Digital Twins for Advanced Reactors</h3>
+            <p>
+              Integrating multiscale and system-level modeling with high-fidelity component models to
+              build predictive simulation environments for advanced reactor design and operation.
+            </p>
+          </a>
+
+          <a class="research-card" href="research/research-direction4.html" aria-label="Learn more about HPC-based particle method development">
+            <div class="research-visual visual-particles" aria-hidden="true"></div>
+            <span class="research-number">04 · HPC PARTICLE METHODS</span>
+            <h3>HPC-Based Particle Method Development</h3>
+            <p>
+              Developing scalable smoothed particle hydrodynamics (SPH), peridynamics (PD), and discrete
+              element methods (DEM), together with robust coupling strategies among these formulations.
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="current-work">
+      <div class="container">
+        <div class="news-heading">
+          <div>
+            <p class="section-kicker">Latest updates</p>
+            <h2>News</h2>
+          </div>
+          <div class="news-controls" aria-label="News navigation">
+            <button class="news-control news-prev" type="button" aria-label="Previous news">&larr;</button>
+            <button class="news-control news-next" type="button" aria-label="Next news">&rarr;</button>
+          </div>
+        </div>
+
+        <div class="news-carousel">
+          <div class="news-track" tabindex="0" aria-label="News carousel">
+            <article class="highlight">
+              <div class="highlight-graphic news-image news-photo">
+                <img src="news/news2.jpg" alt="Hee Sang Yoo with colleagues at CEA Cadarache">
+              </div>
+              <div class="highlight-copy">
+                <p class="section-kicker">August 2026 · CEA Cadarache, France</p>
+                <h3>GOODBYE, CEA!</h3>
+                <p>
+                  It was an honor to be part of CEA IRESNE at CEA Cadarache. I was fortunate to meet
+                  wonderful colleagues, learn a great deal from them, and grow as a researcher throughout this chapter.
+                </p>
+                <ul class="tag-list">
+                  <li>CEA Cadarache</li>
+                  <li>CEA IRESNE</li>
+                  <li>France</li>
+                  <li>Research Journey</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="highlight">
+              <div class="highlight-graphic news-image news-photo">
+                <img src="news/news1.webp" alt="Hee Sang Yoo presenting at PHYSOR 2026 in Turin">
+              </div>
+              <div class="highlight-copy">
+                <p class="section-kicker">April 2026 · PHYSOR 2026 · Turin, Italy</p>
+                <h3>I PRESENTED OUR WORK AT PHYSOR 2026 IN TURIN!</h3>
+                <p>
+                  I was pleased to present “Multiphysics Coupling of APOLLO3 and CATHARE3 via the C3PO
+                  Platform for Analysis of CABRI Power Transients” at PHYSOR 2026 in Turin, Italy.
+                  I sincerely thank CEA IRESNE for its support and collaboration.
+                </p>
+                <ul class="tag-list">
+                  <li>PHYSOR 2026</li>
+                  <li>Turin</li>
+                  <li>CEA IRESNE</li>
+                  <li>Reactor Multiphysics</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="highlight">
+              <div class="highlight-graphic coming-soon-graphic" aria-hidden="true">
+                <div class="core-lines"></div>
+                <div class="core-ring"></div>
+                <span>COMING SOON</span>
+              </div>
+              <div class="highlight-copy">
+                <p class="section-kicker">Upcoming Update</p>
+                <h3>Coming Soon</h3>
+                <p>New research and academic updates will be shared here.</p>
+              </div>
+            </article>
+          </div>
+          <p class="news-status" aria-live="polite"><span class="news-current">1</span> / 3</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft" id="people">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">People</p>
+            <h2>Meet MONAMI</h2>
+          </div>
+          <p class="section-intro">
+            We are building an interdisciplinary team at the intersection of nuclear engineering,
+            computational physics, and scientific computing.
+          </p>
+        </div>
+
+        <div class="people-grid">
+          <figure class="person-photo">
+            <img src="figure/PHOTO.jpg" onerror="this.onerror=null;this.src='figure/profile-placeholder.svg';" alt="Portrait of Hee Sang Yoo">
+          </figure>
+          <article class="person-card">
+            <p class="section-kicker">Principal Investigator</p>
+            <h3>Hee Sang Yoo, Ph.D.</h3>
+            <p class="person-role">Assistant Professor &middot; Department of Quantum Systems Engineering, JBNU</p>
+            <p>
+              Prof. Yoo leads MONAMI Lab in reactor multiphysics, severe-accident digital twins,
+              advanced reactor system modeling, and HPC-based particle methods. His work spans the
+              complete computational science workflow from mathematical formulation and solver design
+              to parallel implementation, verification, validation, and physical interpretation.
+            </p>
+            <div class="person-links">
+              <a class="button secondary" href="https://scholar.google.co.kr/citations?user=WE6J39QAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+              <a class="button secondary" href="https://www.linkedin.com/in/heesang-yoo-963267172/" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="button secondary" href="CV.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="recruit-card">
+          <div>
+            <p class="section-kicker">Open Positions</p>
+            <h3>Future members of MONAMI</h3>
+            <p>We welcome motivated students interested in reactor simulation, scientific computing, and high-performance multiphysics.</p>
+          </div>
+          <a class="button" href="#contact">Join the Lab</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Publications</p>
+            <h2>Research Publications</h2>
+          </div>
+          <p class="section-intro">
+            Journal articles, conference presentations, and scientific software that establish the
+            computational foundations of MONAMI Lab.
+          </p>
+        </div>
+
+        <div class="featured-publications" aria-labelledby="featured-publications-title">
+          <div class="featured-publications-head">
+            <div class="featured-publications-heading-copy">
+              <h3 id="featured-publications-title">Highlighted Publications</h3>
+              <p>Selected recent papers - click a first page to enlarge</p>
+            </div>
+            <div class="featured-publications-controls" aria-label="Highlighted publication navigation">
+              <button class="news-control featured-prev" type="button" aria-label="Previous highlighted publication">&larr;</button>
+              <button class="news-control featured-next" type="button" aria-label="Next highlighted publication">&rarr;</button>
+            </div>
+          </div>
+          <div class="featured-paper-track" tabindex="0" aria-label="Highlighted publications carousel">
+            <article class="featured-paper">
+              <div class="featured-paper-page">
+                <img src="figure/publications/highlights/j16-first-page.png" alt="First page of the Renewable and Sustainable Energy Reviews paper">
+              </div>
+              <div class="featured-paper-meta">
+                <span>J16 - 2026</span>
+                <h4>From Water to Dielectric Fluids</h4>
+                <p class="featured-paper-summary">This review clarifies how pressure and subcooling govern boiling performance in dielectric fluids for next-generation cooling systems.</p>
+                <a href="https://doi.org/10.1016/j.rser.2026.116852" target="_blank" rel="noopener">DOI &nearr;</a>
+              </div>
+            </article>
+
+            <article class="featured-paper">
+              <div class="featured-paper-page">
+                <img src="figure/publications/highlights/j12-first-page.png" alt="First page of the Computational Mechanics paper">
+              </div>
+              <div class="featured-paper-meta">
+                <span>J12 - 2025</span>
+                <h4>Coupled EISPH–OSPD Framework for Hydroelastic Response and Brittle Fracture</h4>
+                <p class="featured-paper-summary">A unified particle framework couples fluid dynamics, structural response, and brittle fracture for strongly interacting hydroelastic problems.</p>
+                <a href="https://doi.org/10.1007/s00466-025-02697-z" target="_blank" rel="noopener">DOI &nearr;</a>
+              </div>
+            </article>
+
+            <article class="featured-paper">
+              <div class="featured-paper-page">
+                <img src="figure/publications/highlights/j9-first-page.png" alt="First page of the Nuclear Engineering and Technology paper">
+              </div>
+              <div class="featured-paper-meta">
+                <span>J9 - 2024</span>
+                <h4>Numerical Investigation of Molten-Corium Spreading Using EISPH</h4>
+                <p class="featured-paper-summary">The EISPH method resolves the highly viscous free-surface dynamics and heat transfer that govern molten-corium spreading.</p>
+                <a href="https://doi.org/10.1016/j.net.2024.11.003" target="_blank" rel="noopener">DOI &nearr;</a>
+              </div>
+            </article>
+
+            <article class="featured-paper">
+              <div class="featured-paper-page">
+                <img src="figure/publications/highlights/j6-first-page.png" alt="First page of the Journal of Computational Physics paper">
+              </div>
+              <div class="featured-paper-meta">
+                <span>J6 - 2024</span>
+                <h4>Comparative Study of SPH Methods for Multiphase Flow with High Density Difference</h4>
+                <p class="featured-paper-summary">WCSPH, EISPH, and EICSPH are systematically compared to identify their accuracy and stability across challenging high-density-ratio multiphase flows.</p>
+                <a href="https://doi.org/10.1016/j.jcp.2024.112930" target="_blank" rel="noopener">DOI &nearr;</a>
+              </div>
+            </article>
+          </div>
+          <p class="featured-publications-status" aria-live="polite"><span class="featured-current">1</span> / 4</p>
+        </div>
+
+        <h3 class="publication-subheading" style="margin: 0 0 24px;">Journal Publications</h3>
+        <ol class="publication-list">
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">16</span>2026</div>
+            <div class="publication-figure"><img src="figure/publications/j15.jpg" alt="Pool boiling regimes and heat-flux curve"></div>
+            <div><p class="publication-title">From Water to Dielectric Fluids: Pool Boiling Research under Pressure and Subcooling for Next-Generation Cooling</p><p class="publication-authors">Sung Jin Kim, Hyunjin Yong, <strong>Hee Sang Yoo</strong>, and Il Woong Park</p><p class="publication-journal"><em>Renewable and Sustainable Energy Reviews</em>, 239, 116852<br><strong>2024 JCR: Top 2.4% · IF 16.3</strong></p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.rser.2026.116852" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">15</span>2026</div>
+            <div class="publication-figure"><img src="figure/publications/highlights/j15-first-page.png" alt="First page of the oxidized Zircaloy-4 pool-boiling paper"></div>
+            <div><p class="publication-title">Effects of Surface Characteristics of Oxidized Zircaloy-4 on Pool Boiling Heat Transfer</p><p class="publication-authors">Sung Jin Kim, Sangmin Song, Junbeom Song, Il Woong Park, <strong>Hee Sang Yoo</strong>, and Hyun Sun Park</p><p class="publication-journal"><em>International Communications in Heat and Mass Transfer</em>, 176, 111277</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.icheatmasstransfer.2026.111277" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">14</span>2026</div>
+            <div class="publication-figure"><img src="figure/publications/j14.gif" alt="Two-dimensional staggered domain decomposition for multi-GPU SPH"></div>
+            <div><p class="publication-title">Dynamic Load Balancing for Multi-GPU Smoothed Particle Hydrodynamics Using Two-Dimensional Staggered Domain Decomposition</p><p class="publication-authors">Yelyn Ahn, Namjae Choi, <strong>Hee Sang Yoo</strong>, and Eung Soo Kim</p><p class="publication-journal"><em>Advances in Engineering Software</em>, 216, 104123</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.advengsoft.2026.104123" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">13</span>2026</div>
+            <div class="publication-figure publication-placeholder"><span>COMING SOON</span></div>
+            <div><p class="publication-title">A Steady-State Eulerian Smoothed Particle Hydrodynamics (SPH) Approach for Incompressible Flow and Heat Transfer Using the Semi-Implicit Method for Pressure-Linked Equations (SIMPLE) Algorithm</p><p class="publication-authors">Tae Hwan Kim, <strong>Hee Sang Yoo</strong>, Jin-Woo Kim, and Eung Soo Kim</p><p class="publication-journal"><em>International Journal for Numerical Methods in Engineering</em>, 127(1), e70255</p></div>
+            <a class="publication-link" href="https://doi.org/10.1002/nme.70255" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">12</span>2025</div>
+            <div class="publication-figure"><img src="figure/publications/j12.png" alt="EISPH and OSPD particle coupling schematic"></div>
+            <div><p class="publication-title">Coupled EISPH–OSPD Framework for Modeling Hydroelastic Response and Brittle Fracture</p><p class="publication-authors"><strong>Hee Sang Yoo</strong> and Eung Soo Kim</p><p class="publication-journal"><em>Computational Mechanics</em>, 77(4), 1025–1059</p></div>
+            <a class="publication-link" href="https://doi.org/10.1007/s00466-025-02697-z" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">11</span>2025</div>
+            <div class="publication-figure"><img src="figure/publications/j11.jpg" alt="SPH support domain for implicit viscosity solvers"></div>
+            <div><p class="publication-title">Comparative Evaluation of Matrix-Free Implicit Viscosity Solvers for GPU-Accelerated SPH Simulation of Highly Viscous Fluids</p><p class="publication-authors"><strong>Hee Sang Yoo</strong> and Eung Soo Kim</p><p class="publication-journal"><em>Computational Particle Mechanics</em>, 12, 4107–4130</p></div>
+            <a class="publication-link" href="https://doi.org/10.1007/s40571-025-01071-3" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">10</span>2025</div>
+            <div class="publication-figure"><img src="figure/publications/j10.gif" alt="SPH kernel and support-domain schematic for impact simulation"></div>
+            <div><p class="publication-title">GPU-Parallelized SPH Solver for Accurate Hypervelocity Impact Simulation of Shaped Charge Jet Penetration in Concrete Structures</p><p class="publication-authors">Jin Hyun Kim, <strong>Hee Sang Yoo</strong>, Young Beom Jo, and Eung Soo Kim</p><p class="publication-journal"><em>International Journal of Fracture</em>, 249(3), 52</p></div>
+            <a class="publication-link" href="https://doi.org/10.1007/s10704-025-00868-w" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">9</span>2024</div>
+            <div class="publication-figure"><img src="figure/publications/j9.jpg" alt="Computational workflow for molten-corium spreading analysis"></div>
+            <div><p class="publication-title">Numerical Investigation of Spreading Phenomena of Molten Corium Using EISPH Method</p><p class="publication-authors"><strong>Hee Sang Yoo</strong> and Eung Soo Kim</p><p class="publication-journal"><em>Nuclear Engineering and Technology</em>, 57(4), 103301</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.net.2024.11.003" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">8</span>2024</div>
+            <div class="publication-figure"><img src="figure/publications/j8.jpg" alt="Unified SPH kernel approximation for steam-explosion analysis"></div>
+            <div><p class="publication-title">Simulation of Shockwave Propagation Characteristics in Nuclear Reactor Cavity During External Steam Explosion Using Unified SPH</p><p class="publication-authors">Jin Hyun Kim, <strong>Hee Sang Yoo</strong>, Young Beom Jo, and Eung Soo Kim</p><p class="publication-journal"><em>Nuclear Engineering and Technology</em>, 57(4), 103274</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.net.2024.10.036" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">7</span>2024</div>
+            <div class="publication-figure publication-placeholder"><span>COMING SOON</span></div>
+            <div><p class="publication-title">Dynamic Load Balancing of Multi-GPU Parallelization for VULCANO VE-U7 Corium Spreading Analysis Using SOPHIA</p><p class="publication-authors">Yelyn Ahn, <strong>Hee Sang Yoo</strong>, Namjae Choi, and Eung Soo Kim</p><p class="publication-journal"><em>Nuclear Technology</em>, 211(6), 1316–1336</p></div>
+            <a class="publication-link" href="https://doi.org/10.1080/00295450.2024.2397617" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">6</span>2024</div>
+            <div class="publication-figure"><img src="figure/publications/j6.jpg" alt="Comparison of WCSPH and incompressible SPH solution procedures"></div>
+            <div><p class="publication-title">Comparative Study of WCSPH, EISPH and Explicit Incompressible-Compressible SPH (EICSPH) for Multi-Phase Flow with High Density Difference</p><p class="publication-authors"><strong>Hee Sang Yoo</strong>, Young Beom Jo, and Eung Soo Kim</p><p class="publication-journal"><em>Journal of Computational Physics</em>, 112930</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.jcp.2024.112930" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">5</span>2023</div>
+            <div class="publication-figure"><img src="figure/publications/j5.jpg" alt="Eulerian-Lagrangian weakly compressible SPH formulation"></div>
+            <div><p class="publication-title">A Simple Eulerian–Lagrangian Weakly Compressible Smoothed Particle Hydrodynamics Method for Fluid Flow and Heat Transfer</p><p class="publication-authors"><strong>Hee Sang Yoo</strong>, Young Beom Jo, Jin Woo Kim, Eung Soo Kim, and Tae Soo Choi</p><p class="publication-journal"><em>International Journal for Numerical Methods in Engineering</em>, 124(4), 928–958 <a class="featured-cover-badge" href="https://onlinelibrary.wiley.com/toc/10970207/2023/124/4" target="_blank" rel="noopener">Featured Cover &nearr;</a></p></div>
+            <a class="publication-link" href="https://doi.org/10.1002/nme.7148" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">4</span>2022</div>
+            <div class="publication-figure"><img src="figure/publications/j4.jpg" alt="SPH kernel approximation and particle support domain"></div>
+            <div><p class="publication-title">GPU-Based SPH-DEM Method to Examine the Three-Phase Hydrodynamic Interactions Between Multiphase Flow and Solid Particles</p><p class="publication-authors">Young Beom Jo, So-Hyun Park, <strong>Hee Sang Yoo</strong>, and Eung Soo Kim</p><p class="publication-journal"><em>International Journal of Multiphase Flow</em>, 153, 104125</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.ijmultiphaseflow.2022.104125" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">3</span>2022</div>
+            <div class="publication-figure"><img src="figure/publications/j3.jpg" alt="Water-entry simulation of spherical projectiles using SPH"></div>
+            <div><p class="publication-title">Effect of Wettability on the Water Entry of Spherical Projectiles: Numerical Analysis Using Smoothed Particle Hydrodynamics</p><p class="publication-authors"><strong>Hee Sang Yoo</strong>, Hae Yoon Choi, Tae Hwan Kim, and Eung Soo Kim</p><p class="publication-journal"><em>AIP Advances</em>, 12(3), 035014</p></div>
+            <a class="publication-link" href="https://doi.org/10.1063/5.0072710" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">2</span>2020</div>
+            <div class="publication-figure"><img src="figure/publications/j2.jpg" alt="SPH smoothing kernel and support-domain definition"></div>
+            <div><p class="publication-title">Development of Multi-GPU-Based Smoothed Particle Hydrodynamics Code for Nuclear Thermal Hydraulics and Safety: Potential and Challenges</p><p class="publication-authors">So-Hyun Park, Young Beom Jo, Yelyn Ahn, Hae Yoon Choi, Tae Soo Choi, Su-San Park, <strong>Hee Sang Yoo</strong>, Jin Woo Kim, and Eung Soo Kim</p><p class="publication-journal"><em>Frontiers in Energy Research</em>, 8, 86</p></div>
+            <a class="publication-link" href="https://doi.org/10.3389/fenrg.2020.00086" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+          <li class="publication-item with-figure">
+            <div class="publication-year"><span class="publication-number">1</span>2019</div>
+            <div class="publication-figure"><img src="figure/publications/j1.jpg" alt="Dry-cask heat-transfer performance with inert-gas mixtures"></div>
+            <div><p class="publication-title">Heat Transfer Enhancement in Dry Cask Storage for Nuclear Spent Fuel Using Additive High Density Inert Gas</p><p class="publication-authors"><strong>Hee Sang Yoo</strong>, Seung Hun Yoo, and Eung Soo Kim</p><p class="publication-journal"><em>Annals of Nuclear Energy</em>, 132, 108–118</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.anucene.2019.04.018" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
+        </ol>
+
+        <h3 class="publication-subheading" id="conferences" style="margin: 56px 0 24px;">Conference Publications</h3>
+
+        <h4 class="conference-group-heading">International Conferences</h4>
+        <ol class="publication-list" style="font-size: 14px;">
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">7</span>2026</div><div><p class="publication-title" style="font-size: 15px;">Multiphysics Coupling of APOLLO3 and CATHARE3 via the C3PO Platform for Analysis of CABRI Power Transients</p><p class="publication-meta"><strong>H. S. Yoo</strong>, J. Debove, C. Vaglio-Gaudard, E.-Y. Garcia-Cervantes, J.-C. Jaboulay, and J.-M. Labit · PHYSOR 2026 · Turin, Italy · April 19–23, 2026</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">6</span>2025</div><div><p class="publication-title" style="font-size: 15px;">A Smoothed Particle Hydrodynamics Model for Safety Assessment of the Ex-vessel Core Catcher under Reactor Vessel Failure</p><p class="publication-meta">J. W. Kim, <strong>H. S. Yoo</strong>, T. H. Lee, Y. Ahn, M. C. Kwon, and E. S. Kim · NURETH-21 · Busan, Korea · August 31–September 5, 2025 <span class="best-paper-badge">Best Paper</span></p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">5</span>2025</div><div><p class="publication-title" style="font-size: 15px;">Particle-Based Approaches to Multiphysics Simulation in Nuclear Safety</p><p class="publication-meta">E. S. Kim, Y. Ahn, J. W. Kim, J. H. Kim, J. Park, Y. B. Jo, and <strong>H. S. Yoo</strong> · NURETH-21 · Busan, Korea · August 31–September 5, 2025</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">4</span>2024</div><div><p class="publication-title" style="font-size: 15px;">Numerical Investigation on the Safety Assessment of an Ex-vessel Core Catcher under Large-break Reactor Vessel Failures Using Smoothed Particle Hydrodynamics</p><p class="publication-meta">J. W. Kim, <strong>H. S. Yoo</strong>, T. H. Lee, Y. Ahn, M. C. Kwon, and E. S. Kim · The Eleventh Korea-Japan Symposium on Nuclear Thermal Hydraulics and Safety · Seoul, Korea · November 10–13, 2024</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">3</span>2022</div><div><p class="publication-title" style="font-size: 15px;">GPU-accelerated Explicit Incompressible-Compressible SPH for multi-phase flow with large density difference</p><p class="publication-meta"><strong>H. S. Yoo</strong>, Y. B. Jo, and E. S. Kim · Proceedings of the SPHERIC Workshop · Catania, Italy</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">2</span>2018</div><div><p class="publication-title" style="font-size: 15px;">Heat Transfer Enhancement of Dry Cask Storage System Using Binary Helium and Heavy Inert Gas Mixture</p><p class="publication-meta"><strong>H. S. Yoo</strong>, S. H. Yoo, and E. S. Kim · The Eleventh Korea-Japan Symposium on Nuclear Thermal Hydraulics and Safety · Busan, Korea · November 18–21, 2018</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">1</span>2017</div><div><p class="publication-title" style="font-size: 15px;">The Investigation of Flow Characteristics in 3-Pin Wire-Wrapped Fuel Bundle Using Laser-Based Measurement Techniques</p><p class="publication-meta">M. S. Song, <strong>H. S. Yoo</strong>, J. H. Kim, and E. S. Kim · NURETH-17 · Xi'an, China · September 3–8, 2017</p></div></li>
+        </ol>
+
+        <h4 class="conference-group-heading" style="margin-top: 38px;">Domestic Conferences</h4>
+        <ol class="publication-list" style="font-size: 14px;">
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">9</span>2026</div><div><p class="publication-title" style="font-size: 15px;">CABRI</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">8</span>2025</div><div><p class="publication-title" style="font-size: 15px;">Numerical Analysis of Melting and Interfacial Flow in a Direct-Contact Latent Heat Storage System Reflecting the Marangoni Effect</p><p class="publication-meta">M. H. Kim, <strong>H. S. Yoo</strong>, and I. W. Park · Korean Society for Fluid Machinery · Jeju, Korea · December 4–5, 2025</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">7</span>2024</div><div><p class="publication-title" style="font-size: 15px;">Numerical Investigation of Corium Spreading Phenomena using Smoothed Particle Hydrodynamics</p><p class="publication-meta"><strong>H. S. Yoo</strong> and E. S. Kim · Transactions of the Korean Nuclear Society Spring Meeting · Jeju, Korea · May 9–10, 2024 <span class="best-paper-badge">Best Paper</span></p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">6</span>2024</div><div><p class="publication-title" style="font-size: 15px;">Dynamic Modeling for 20 kWe Heat Pipe Fission Battery with Dual Power Conversion System</p><p class="publication-meta">K. J. Park, T. H. Kim, <strong>H. S. Yoo</strong>, Y. B. Jo, and E. S. Kim · Transactions of the Korean Nuclear Society Spring Meeting · Jeju, Korea · May 9–10, 2024</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">5</span>2023</div><div><p class="publication-title" style="font-size: 15px;">Dynamic Modeling of Free Piston Stirling Generator for Micro Nuclear Reactors</p><p class="publication-meta">K. J. Park, T. H. Kim, <strong>H. S. Yoo</strong>, E. S. Kim, and Y. B. Jo · Transactions of the Korean Nuclear Society Autumn Meeting · Gyeongju, Korea · October 25–27, 2023 <span class="best-paper-badge">Best Paper</span></p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">4</span>2021</div><div><p class="publication-title" style="font-size: 15px;">Development of an Eulerian–Lagrangian Coupling Method Using SPH</p><p class="publication-meta"><strong>H. S. Yoo</strong> and E. S. Kim · Proceedings of the KSCFE Conference · Seoul National University Siheung Campus, Korea</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">3</span>2021</div><div><p class="publication-title" style="font-size: 15px;">Comparative Analysis of Recent Pressure-Noise Reduction Methods for Free-Surface Flow and Fluid–Structure Interaction Using SPH</p><p class="publication-meta"><strong>H. S. Yoo</strong> and E. S. Kim · Proceedings of the KSOE Conference · Busan, Korea</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">2</span>2021</div><div><p class="publication-title" style="font-size: 15px;">Numerical Simulation on Spreading and Impact Behavior of a Single Droplet Using Smoothed Particle Hydrodynamics</p><p class="publication-meta"><strong>H. S. Yoo</strong>, T. H. Kim, and E. S. Kim · Transactions of the Korean Nuclear Society Virtual Autumn Meeting · October 21–22, 2021</p></div></li>
+          <li class="publication-item"><div class="publication-year"><span class="publication-number">1</span>2018</div><div><p class="publication-title" style="font-size: 15px;">Thermal Performance Enhancement of Dry Cask Storage System Using Helium-Based Binary Gaseous Mixture</p><p class="publication-meta"><strong>H. S. Yoo</strong>, E. S. Kim, and S. H. Yoo · Transactions of the Korean Nuclear Society Autumn Meeting · Yeosu, Korea · October 25–26, 2018 <span class="best-poster-badge">Best Poster</span></p></div></li>
+        </ol>
+
+        <h3 class="publication-subheading" id="software" style="margin: 56px 0 24px;">Software</h3>
+        <div class="research-grid" style="grid-template-columns: 1fr;">
+          <article class="research-card">
+            <span class="research-number">SOPHIA</span>
+            <h3>A Lagrangian-based HPC-CFD code for versatile thermal-hydraulics and nuclear safety application</h3>
+            <p>
+              <strong>NEA-1911</strong> · <a href="https://www.oecd-nea.org/tools/abstract/detail/nea-1911/" target="_blank" rel="noopener" style="color: var(--teal); text-decoration: underline;">OECD-NEA Official Repository</a>
+              <br><br>
+              <strong>Description:</strong> SOPHIA is a GPU-enabled, particle-based multiphase flow solver built on smoothed particle hydrodynamics (SPH), 
+              Lagrangian discretization, and matrix-free iterative solvers. Designed for high-fidelity thermal-hydraulic analysis of corium 
+              spreading, severe accidents, free-surface dynamics, highly viscous multiphase systems, and fluid–structure interaction.
+              <br><br>
+              <strong>Principal Investigator:</strong> Prof. Eung Soo Kim
+              <br>
+              <strong>Co-Developers:</strong> Y. B. Jo, S. H. Park, H. Y. Choi, T. S. Choi, S. S. Park, H. S. Yoo, Y. L. Ahn, J. H. Kim, T. H. Lee, H. Chae, J. M. Park, J. R. Kim, D. H. Kim
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <p class="section-kicker" style="color:#81d7dc;">Join &amp; Collaborate</p>
+            <h2>Build the future of reactor simulation with MONAMI.</h2>
+            <p>
+              We welcome prospective students and research collaborators interested in reactor
+              multiphysics, particle-based simulation, high-performance computing, severe accidents,
+              and digital twins for advanced reactors.
+            </p>
+          </div>
+          <div class="contact-details">
+            <iframe
+              class="contact-map"
+              title="전북대학교 공과대학 8호관 지도"
+              src="https://www.google.com/maps?q=%EC%A0%84%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%20%EA%B3%B5%EA%B3%BC%EB%8C%80%ED%95%99%208%ED%98%B8%EA%B4%80&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+            <div class="contact-links">
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=%EC%A0%84%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%20%EA%B3%B5%EA%B3%BC%EB%8C%80%ED%95%99%208%ED%98%B8%EA%B4%80" target="_blank" rel="noopener"><span>Google Map</span><span>전북대학교 공과대학 8호관 ↗</span></a>
+              <a href="https://map.kakao.com/link/search/%EC%A0%84%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%20%EA%B3%B5%EA%B3%BC%EB%8C%80%ED%95%99%208%ED%98%B8%EA%B4%80" target="_blank" rel="noopener"><span>Kakao Map</span><span>카카오맵에서 보기 ↗</span></a>
+              <a href="mailto:yhs0365@gmail.com"><span>Email</span><span>yhs0365@gmail.com</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged publication image" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Close enlarged image">&times;</button>
+    <img src="" alt="">
+    <video src="" controls autoplay muted loop playsinline hidden></video>
+  </div>
+
+  <footer>
+    <div class="container">&copy; <span id="current-year"></span> MONAMI Lab &middot; Jeonbuk National University.</div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const navLinks = document.querySelector('#nav-links');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeIcon = themeToggle.querySelector('span');
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+
+    function applyTheme(theme) {
+      const isDark = theme === 'dark';
+      document.documentElement.dataset.theme = theme;
+      themeIcon.textContent = isDark ? '\u2600' : '\u263E';
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeToggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeColor.setAttribute('content', isDark ? '#0f171f' : '#0b1f3a');
+    }
+
+    applyTheme(document.documentElement.dataset.theme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem('color-theme', nextTheme);
+      } catch (_) {}
+    });
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const lightbox = document.querySelector('#image-lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    const lightboxVideo = lightbox.querySelector('video');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    let lastFocusedMedia = null;
+
+    function openLightbox(media) {
+      lastFocusedMedia = media;
+      const isVideo = media.tagName === 'VIDEO';
+      lightboxImage.hidden = isVideo;
+      lightboxVideo.hidden = !isVideo;
+
+      if (isVideo) {
+        lightboxVideo.src = media.currentSrc || media.src;
+        lightboxVideo.play().catch(() => {});
+      } else {
+        lightboxImage.src = media.currentSrc || media.src;
+        lightboxImage.alt = media.alt;
+      }
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      lightboxImage.src = '';
+      lightboxVideo.pause();
+      lightboxVideo.src = '';
+      if (lastFocusedMedia) lastFocusedMedia.focus();
+    }
+
+    function bindExpandableMedia(media, label) {
+      if (media.dataset.expandable === 'true') return;
+      media.dataset.expandable = 'true';
+      media.setAttribute('tabindex', '0');
+      media.setAttribute('role', 'button');
+      media.setAttribute('aria-label', `${label}. Click to enlarge.`);
+      media.addEventListener('click', () => openLightbox(media));
+      media.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openLightbox(media);
+        }
+      });
+    }
+
+    document.querySelectorAll('.publication-figure img, .featured-paper-page img').forEach((image) => {
+      bindExpandableMedia(image, image.alt);
+    });
+
+    function resolvePublicationMedia(container, number) {
+      const label = `Publication J${number} media`;
+      const base = `figure/publications/j${number}`;
+      const candidates = [
+        { extension: 'png', type: 'image' },
+        { extension: 'jpg', type: 'image' },
+        { extension: 'jpeg', type: 'image' },
+        { extension: 'mp4', type: 'video' },
+        { extension: 'gif', type: 'image' },
+        { extension: 'webp', type: 'image' }
+      ];
+
+      const placeholder = document.createElement('span');
+      placeholder.textContent = 'COMING SOON';
+      container.classList.add('publication-placeholder');
+      container.replaceChildren(placeholder);
+
+      function tryMedia(index) {
+        if (index >= candidates.length) return;
+
+        const candidate = candidates[index];
+        const source = `${base}.${candidate.extension}`;
+
+        if (candidate.type === 'video') {
+          const video = document.createElement('video');
+          video.src = source;
+          video.autoplay = true;
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = 'metadata';
+          video.addEventListener('loadedmetadata', () => {
+            container.classList.remove('publication-placeholder');
+            container.replaceChildren(video);
+            bindExpandableMedia(video, label);
+            video.play().catch(() => {});
+          }, { once: true });
+          video.addEventListener('error', () => tryMedia(index + 1), { once: true });
+          video.load();
+          return;
+        }
+
+        const probe = new Image();
+        probe.onload = () => {
+          const image = document.createElement('img');
+          image.src = probe.src;
+          image.alt = label;
+          container.classList.remove('publication-placeholder');
+          container.replaceChildren(image);
+          bindExpandableMedia(image, label);
+        };
+        probe.onerror = () => tryMedia(index + 1);
+        probe.src = source;
+      }
+
+      tryMedia(0);
+    }
+
+    document.querySelectorAll('.publication-list .publication-item.with-figure').forEach((item) => {
+      const number = item.querySelector('.publication-number')?.textContent.trim();
+      const container = item.querySelector('.publication-figure');
+      if (number && container) resolvePublicationMedia(container, number);
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
+    const newsTrack = document.querySelector('.news-track');
+    const newsSlides = [...newsTrack.querySelectorAll('.highlight')];
+    const newsCurrent = document.querySelector('.news-current');
+    let newsIndex = 0;
+
+    function showNews(index) {
+      newsIndex = (index + newsSlides.length) % newsSlides.length;
+      newsTrack.scrollTo({ left: newsSlides[newsIndex].offsetLeft - newsTrack.offsetLeft, behavior: 'smooth' });
+      newsCurrent.textContent = newsIndex + 1;
+    }
+
+    document.querySelector('.news-prev').addEventListener('click', () => showNews(newsIndex - 1));
+    document.querySelector('.news-next').addEventListener('click', () => showNews(newsIndex + 1));
+    newsTrack.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        showNews(newsIndex + (event.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    newsTrack.addEventListener('scroll', () => {
+      const nearest = newsSlides.reduce((best, slide, index) => {
+        const distance = Math.abs(slide.offsetLeft - newsTrack.offsetLeft - newsTrack.scrollLeft);
+        return distance < best.distance ? { index, distance } : best;
+      }, { index: 0, distance: Infinity });
+      newsIndex = nearest.index;
+      newsCurrent.textContent = newsIndex + 1;
+    }, { passive: true });
+
+    const featuredTrack = document.querySelector('.featured-paper-track');
+    const featuredSlides = [...featuredTrack.querySelectorAll('.featured-paper')];
+    const featuredCurrent = document.querySelector('.featured-current');
+    let featuredIndex = 0;
+
+    function showFeaturedPublication(index) {
+      featuredIndex = (index + featuredSlides.length) % featuredSlides.length;
+      featuredTrack.scrollTo({ left: featuredSlides[featuredIndex].offsetLeft - featuredTrack.offsetLeft, behavior: 'smooth' });
+      featuredCurrent.textContent = featuredIndex + 1;
+    }
+
+    document.querySelector('.featured-prev').addEventListener('click', () => showFeaturedPublication(featuredIndex - 1));
+    document.querySelector('.featured-next').addEventListener('click', () => showFeaturedPublication(featuredIndex + 1));
+    featuredTrack.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        showFeaturedPublication(featuredIndex + (event.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    featuredTrack.addEventListener('scroll', () => {
+      const nearest = featuredSlides.reduce((best, slide, index) => {
+        const distance = Math.abs(slide.offsetLeft - featuredTrack.offsetLeft - featuredTrack.scrollLeft);
+        return distance < best.distance ? { index, distance } : best;
+      }, { index: 0, distance: Infinity });
+      featuredIndex = nearest.index;
+      featuredCurrent.textContent = featuredIndex + 1;
+    }, { passive: true });
+
+    const researchSection = document.querySelector('#research');
+    const currentWorkSection = document.querySelector('#current-work');
+    researchSection.before(currentWorkSection);
+
+    document.querySelector('#current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
