@@ -1059,6 +1059,8 @@
     }
 
     .featured-publications {
+      width: 100%;
+      max-width: 720px;
       margin: 0 0 54px;
     }
 
@@ -1381,6 +1383,39 @@
       margin-top: 20px;
       color: var(--muted);
       font-size: 13px;
+    }
+
+    .publication-status-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 3px 9px 4px;
+      border: 1px solid #86aaa7;
+      border-radius: 999px;
+      color: var(--teal);
+      background: #edf8f7;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 850;
+      letter-spacing: .04em;
+      vertical-align: middle;
+    }
+
+    .publication-item.is-new {
+      position: relative;
+      border-width: 2px;
+      border-color: var(--teal);
+    }
+
+    .publication-item.is-new > .publication-status-badge {
+      position: absolute;
+      top: -13px;
+      right: 18px;
+      margin: 0;
+      padding: 4px 13px 5px;
+      border-color: var(--teal);
+      color: #fff;
+      background: var(--teal);
+      box-shadow: 0 4px 10px rgba(15, 123, 131, .18);
     }
 
     /* Awards */
@@ -2368,8 +2403,27 @@
           <p class="featured-publications-status" aria-live="polite"><span class="featured-current">1</span> / 4</p>
         </div>
 
+        <h3 class="publication-subheading" style="margin: 0 0 24px;">Manuscripts Under Review</h3>
+        <ol class="publication-list" style="margin-bottom: 56px;">
+          <li class="publication-item">
+            <div class="publication-year">2026</div>
+            <div>
+              <p class="publication-title">Characterization of Full-Power Steady-State Conditions and Local Multiphysics Phenomena in CABRI Transients Using APOLLO3®/CATHARE3 <span class="publication-status-badge">Under Review</span></p>
+              <p class="publication-authors"><strong>Hee Sang Yoo</strong>, Jonathan Debove, Claire Vaglio-Gaudard, Héloïse Velardo, Jean-Charles Jaboulay, and Jean-Marc Labit</p>
+              <p class="publication-journal"><em>Nuclear Science and Engineering</em></p>
+            </div>
+          </li>
+        </ol>
+
         <h3 class="publication-subheading" style="margin: 0 0 24px;">Journal Publications</h3>
         <ol class="publication-list">
+          <li class="publication-item with-figure is-new">
+            <span class="publication-status-badge">NEW</span>
+            <div class="publication-year"><span class="publication-number">17</span>2026</div>
+            <div class="publication-figure publication-placeholder"><span>COMING SOON</span></div>
+            <div><p class="publication-title">A Coupled EISPH–TLSPH–DM Method for Hydroelastic Fluid–Structure Interaction with Quasi-Brittle Fracture</p><p class="publication-authors">Jin-Woo Kim, <strong>Hee Sang Yoo</strong>, Eung Soo Kim, and Min Luo</p><p class="publication-journal"><em>Applied Mathematical Modelling</em>, 117275</p></div>
+            <a class="publication-link" href="https://doi.org/10.1016/j.apm.2026.117275" target="_blank" rel="noopener">DOI ↗</a>
+          </li>
           <li class="publication-item with-figure">
             <div class="publication-year"><span class="publication-number">16</span>2026</div>
             <div class="publication-figure"><img src="figure/publications/j15.jpg" alt="Pool boiling regimes and heat-flux curve"></div>
