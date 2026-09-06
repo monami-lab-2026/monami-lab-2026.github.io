@@ -1452,12 +1452,30 @@
     }
 
     /* Join Us */
+    .join-welcome {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: clamp(28px, 5vw, 72px);
+      align-items: center;
+      margin-bottom: 46px;
+    }
+
     .join-intro {
       max-width: 980px;
-      margin: 0 0 46px;
+      margin: 0;
       color: var(--muted);
       font-size: clamp(18px, 1.6vw, 22px);
       line-height: 1.75;
+    }
+
+    .join-welcome-image {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(19, 47, 67, .08);
     }
 
     .join-grid {
@@ -2020,6 +2038,13 @@
         font-size: .4em;
       }
       .join-grid { grid-template-columns: 1fr; }
+      .join-welcome {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .join-welcome-image {
+        width: min(220px, 64vw);
+      }
       .position-list,
       .highlight-list { grid-template-columns: 1fr; }
       .join-block,
@@ -2282,7 +2307,7 @@
 
         <div class="people-grid" id="professor-panel" role="tabpanel">
           <figure class="person-photo">
-            <img src="figure/PHOTO.jpg" onerror="this.onerror=null;this.src='figure/profile-placeholder.svg';" alt="Portrait of Hee Sang Yoo">
+            <img src="figure/hee-sang-yoo-profile.png" onerror="this.onerror=null;this.src='figure/profile-placeholder.svg';" alt="Portrait of Hee Sang Yoo">
           </figure>
           <article class="person-card">
             <p class="section-kicker">Principal Investigator</p>
@@ -2578,9 +2603,12 @@
           </div>
         </div>
 
-        <p class="join-intro" lang="ko">
-          MONAMI 연구실은 원자력 시스템을 더 정확하고 효율적으로 해석하는 계산과학 연구에 관심 있는 학생을 기다립니다. 원자력 열수력, 다물리·다중스케일 해석, 입자 기반 수치해석, GPU 병렬계산 및 디지털트윈 기술에 관심이 있다면 함께 새로운 문제에 도전할 수 있습니다.
-        </p>
+        <div class="join-welcome">
+          <p class="join-intro" lang="ko">
+            MONAMI 연구실은 원자력 시스템을 더 정확하고 효율적으로 해석하는 계산과학 연구에 관심 있는 학생을 기다립니다. 원자력 열수력, 다물리·다중스케일 해석, 입자 기반 수치해석, GPU 병렬계산 및 디지털트윈 기술에 관심이 있다면 함께 새로운 문제에 도전할 수 있습니다.
+          </p>
+          <img class="join-welcome-image" src="figure/join-us-avatar.png" alt="MONAMI Lab welcome illustration">
+        </div>
 
         <section class="join-section" aria-labelledby="open-positions-title">
           <h3 id="open-positions-title">Open Positions</h3>
