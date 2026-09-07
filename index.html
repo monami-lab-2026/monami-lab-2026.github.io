@@ -1109,7 +1109,7 @@
     }
 
     .featured-paper {
-      flex: 0 0 100%;
+      flex: 0 0 calc((100% - 22px) / 2);
       display: block;
       min-width: 0;
       overflow: hidden;
@@ -1121,7 +1121,7 @@
     }
 
     .featured-paper-page {
-      height: min(760px, 78vw);
+      height: min(460px, 58vw);
       overflow: hidden;
       border-bottom: 1px solid var(--line);
       background: var(--surface-soft);
@@ -1192,6 +1192,10 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 5px;
+      }
+
+      .featured-paper {
+        flex-basis: 100%;
       }
 
       .featured-paper-page {
@@ -2675,7 +2679,6 @@
             allowfullscreen>
           </iframe>
 
-          <p class="contact-note">Prospective students may introduce their background and research interests briefly by email.</p>
         </div>
       </div>
     </section>
