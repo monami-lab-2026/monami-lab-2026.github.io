@@ -263,6 +263,31 @@
       white-space: nowrap;
     }
 
+    .site-progress-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 22px;
+      padding: 9px 14px;
+      border: 1px solid #e5c75a;
+      border-radius: 10px;
+      color: #5d4900;
+      background: #fff2ad;
+      box-shadow: 0 5px 16px rgba(121, 91, 0, .08);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: .01em;
+    }
+
+    .site-progress-note::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d39d00;
+      box-shadow: 0 0 0 4px rgba(211, 157, 0, .14);
+    }
+
     .hero-about-me {
       max-width: 735px;
       margin-bottom: 30px;
@@ -2177,6 +2202,7 @@
       <div class="container">
         <div class="hero-grid">
           <div>
+            <p class="site-progress-note">SITE IN PROGRESS · 연구실 홈페이지를 준비하고 있습니다.</p>
             <h1>MONAMI Lab <span class="hero-affiliation">@Jeonbuk National University</span></h1>
             <p class="hero-subtitle" aria-label="Multiphysics fOr Nuclear Analysis, Modeling and Innovation"><span class="acronym-letter">M</span>ultiphysics f<span class="acronym-letter">O</span>r <span class="acronym-letter">N</span>uclear <span class="acronym-letter">A</span>nalysis, <span class="acronym-letter">M</span>odeling and <span class="acronym-letter">I</span>nnovation</p>
             <p class="hero-lab-name" lang="ko">원자력 다물리 해석·모델링 연구실</p>
