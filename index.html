@@ -691,6 +691,47 @@
       outline-offset: 4px;
     }
 
+    .research-card.is-in-progress {
+      cursor: default;
+    }
+
+    .research-card.is-in-progress:hover {
+      transform: none;
+      box-shadow: 0 8px 26px rgba(11, 31, 58, 0.05);
+    }
+
+    .research-card.is-in-progress:hover .research-visual img {
+      transform: none;
+    }
+
+    .research-progress-note {
+      position: absolute;
+      z-index: 2;
+      top: 18px;
+      right: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid #e5c75a;
+      border-radius: 9px;
+      color: #5d4900;
+      background: #fff2ad;
+      box-shadow: 0 5px 16px rgba(121, 91, 0, .08);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .research-progress-note::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d39d00;
+      box-shadow: 0 0 0 3px rgba(211, 157, 0, .14);
+    }
+
     .research-visual {
       position: relative;
       height: 142px;
@@ -2272,7 +2313,8 @@
         </div>
 
         <div class="research-grid">
-          <a class="research-card" href="research/research-direction1.html" aria-label="Learn more about nuclear multiphysics simulation">
+          <article class="research-card is-in-progress" aria-disabled="true">
+            <span class="research-progress-note">SITE IN PROGRESS · 준비 중</span>
             <div class="research-visual"><img src="figure/research/reactor-multiphysics.png" alt="" loading="lazy"></div>
             <span class="research-number">01 · MULTIPHYSICS</span>
             <h3 data-research-ko="원자력 다물리 시뮬레이션">Nuclear Multiphysics Simulation</h3>
@@ -2280,8 +2322,7 @@
               Integrating reactor physics, thermal hydraulics, and structural mechanics through coupled
               models and simulation codes for steady-state and transient reactor analysis.
             </p>
-            <span class="research-page-link">Go to page →</span>
-          </a>
+          </article>
 
           <a class="research-card" href="research/research-direction2.html" aria-label="Learn more about high-fidelity computational analysis">
             <div class="research-visual"><img src="figure/research/hpc-particle-methods.png" alt="" loading="lazy"></div>
@@ -2305,7 +2346,8 @@
             <span class="research-page-link">Go to page →</span>
           </a>
 
-          <a class="research-card" href="research/research-direction4.html" aria-label="Learn more about digital twins and AI for nuclear systems">
+          <article class="research-card is-in-progress" aria-disabled="true">
+            <span class="research-progress-note">SITE IN PROGRESS · 준비 중</span>
             <div class="research-visual"><img src="figure/research/severe-accident-digital-twin.png" alt="" loading="lazy"></div>
             <span class="research-number">04 · DIGITAL TWIN &amp; AI</span>
             <h3 data-research-ko="물리 기반 디지털트윈 및 AI">Physics-Based Digital Twin &amp; AI</h3>
@@ -2313,8 +2355,7 @@
               Combining physics-based simulation with experimental and operational data through reduced-order
               models, surrogate models, AI, and state estimation for fast reactor prediction.
             </p>
-            <span class="research-page-link">Go to page →</span>
-          </a>
+          </article>
         </div>
       </div>
     </section>
