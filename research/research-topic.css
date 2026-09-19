@@ -93,6 +93,22 @@ html[data-research-language="ko"] .toolkit-ko { display: block; }
 .solver-card h4 { margin: 0 0 5px; color: var(--navy); font-size: 19px; }
 .solver-card .solver-name { min-height: 44px; margin: 0 0 14px; color: var(--teal); font-size: 12px; font-weight: 750; line-height: 1.45; }
 .solver-card p:last-child { margin: 0; font-size: 15px; line-height: 1.6; }
+.reactor-focus-section { margin-top: 68px; padding-top: 48px; border-top: 1px solid var(--line); }
+.reactor-focus-ko { display: none; }
+html[data-research-language="ko"] .reactor-focus-en { display: none; }
+html[data-research-language="ko"] .reactor-focus-ko { display: block; }
+.focus-kicker { margin: 0 0 10px; color: var(--teal); font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.focus-intro { max-width: 860px; margin: 0 0 42px; color: var(--muted); font-size: 19px; }
+.focus-block { margin-top: 34px; padding: 30px; border: 1px solid var(--line); border-radius: 20px; background: var(--soft); }
+.focus-block h3 { margin: 0 0 12px; color: var(--navy); font-size: 24px; }
+.focus-block > p, .modelica-block > div > p { margin: 0 0 24px; color: var(--muted); font-size: 17px; }
+.focus-block figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.focus-block figure a { display: block; }
+.focus-block figure img { display: block; width: 100%; height: auto; }
+.focus-block figcaption { padding: 10px 13px; color: var(--muted); background: var(--surface); font-size: 13px; line-height: 1.4; }
+.msr-figure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.modelica-block { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .7fr); gap: 30px; align-items: center; }
+.modelica-block > div > p { margin-bottom: 0; }
 .detail-card { padding: 28px; border: 1px solid var(--line); border-radius: 20px; background: var(--soft); }
 .detail-card + .detail-card { margin-top: 18px; }
 .detail-card h3 { margin: 0 0 14px; color: var(--navy); font-size: 21px; }
@@ -122,5 +138,7 @@ html[data-theme="dark"] {
   .topic-grid { grid-template-columns: 1fr; gap: 35px; }
   .solver-grid { grid-template-columns: 1fr; }
   .solver-card .solver-name { min-height: 0; }
+  .msr-figure-grid, .modelica-block { grid-template-columns: 1fr; }
+  .focus-block { padding: 20px; }
   .topic-nav { grid-template-columns: 1fr; }
 }

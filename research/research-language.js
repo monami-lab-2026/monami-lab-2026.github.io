@@ -14,7 +14,7 @@
       ['Melting & solidification', '용융·응고'], ['GPU computing', 'GPU 병렬계산']
     ],
     'research-direction3.html': [
-      ['SMR', 'SMR'], ['Non-LWR', '비경수형 원자로'], ['Core analysis', '노심 해석'],
+      ['MSR', '용융염원자로'], ['Generation IV', '제4세대 원자로'], ['Core analysis', '노심 해석'],
       ['System analysis', '계통 해석'], ['Multiscale', '다중스케일'],
       ['Safety assessment', '안전성 평가']
     ],
