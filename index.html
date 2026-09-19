@@ -732,6 +732,34 @@
       box-shadow: 0 0 0 3px rgba(211, 157, 0, .14);
     }
 
+    .research-active-note {
+      position: absolute;
+      z-index: 2;
+      top: 18px;
+      right: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid #74b49a;
+      border-radius: 9px;
+      color: #155f42;
+      background: #e3f6ec;
+      box-shadow: 0 5px 16px rgba(30, 116, 78, .09);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .06em;
+    }
+
+    .research-active-note::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #269766;
+      box-shadow: 0 0 0 3px rgba(38, 151, 102, .14);
+    }
+
     .research-visual {
       position: relative;
       height: 142px;
@@ -2325,6 +2353,7 @@
           </article>
 
           <a class="research-card" href="research/research-direction2.html" aria-label="Learn more about high-fidelity computational analysis">
+            <span class="research-active-note">ACTIVE · 연구 진행 중</span>
             <div class="research-visual"><img src="figure/research/hpc-particle-methods.png" alt="" loading="lazy"></div>
             <span class="research-number">02 · HIGH-FIDELITY ANALYSIS</span>
             <h3 data-research-ko="고정밀 계산 해석">High-Fidelity Computational Analysis</h3>
@@ -2336,6 +2365,7 @@
           </a>
 
           <a class="research-card" href="research/research-direction3.html" aria-label="Learn more about advanced reactor analysis">
+            <span class="research-active-note">ACTIVE · 연구 진행 중</span>
             <div class="research-visual"><img src="figure/research/advanced-reactor-digital-twin.png" alt="" loading="lazy"></div>
             <span class="research-number">03 · ADVANCED REACTORS</span>
             <h3 data-research-ko="차세대 원자로 모델링 및 시뮬레이션">Advanced Reactor Modeling &amp; Simulation</h3>

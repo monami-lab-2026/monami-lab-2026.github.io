@@ -77,6 +77,19 @@ h1 { max-width: 850px; margin: 0; color: var(--navy); font: 700 clamp(42px, 6vw,
 .topic-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: start; }
 h2 { margin: 0 0 18px; color: var(--navy); font: 700 36px/1.15 Georgia, "Times New Roman", serif; }
 .overview p { margin: 0 0 22px; color: var(--muted); font-size: 18px; }
+.toolkit-section { margin-top: 48px; padding-top: 38px; border-top: 1px solid var(--line); }
+.toolkit-section h2 { margin-bottom: 8px; }
+.toolkit-full-name { margin: 0 0 28px !important; color: var(--teal) !important; font-size: 16px !important; font-weight: 800; }
+.toolkit-section a { color: var(--teal); font-weight: 700; text-underline-offset: 3px; }
+.toolkit-ko { display: none; }
+html[data-research-language="ko"] .toolkit-en { display: none; }
+html[data-research-language="ko"] .toolkit-ko { display: block; }
+.solver-heading { margin: 40px 0 18px; color: var(--navy); font-size: 25px; }
+.solver-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.solver-card { padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--soft); }
+.solver-card h4 { margin: 0 0 5px; color: var(--navy); font-size: 19px; }
+.solver-card .solver-name { min-height: 44px; margin: 0 0 14px; color: var(--teal); font-size: 12px; font-weight: 750; line-height: 1.45; }
+.solver-card p:last-child { margin: 0; font-size: 15px; line-height: 1.6; }
 .detail-card { padding: 28px; border: 1px solid var(--line); border-radius: 20px; background: var(--soft); }
 .detail-card + .detail-card { margin-top: 18px; }
 .detail-card h3 { margin: 0 0 14px; color: var(--navy); font-size: 21px; }
@@ -104,5 +117,7 @@ html[data-theme="dark"] {
   h2 { font-size: 32px; }
   .overview p { font-size: 17px; }
   .topic-grid { grid-template-columns: 1fr; gap: 35px; }
+  .solver-grid { grid-template-columns: 1fr; }
+  .solver-card .solver-name { min-height: 0; }
   .topic-nav { grid-template-columns: 1fr; }
 }
