@@ -84,6 +84,7 @@ h2 { margin: 0 0 18px; color: var(--navy); font: 700 36px/1.15 Georgia, "Times N
 .toolkit-visual a { display: block; }
 .toolkit-visual img { display: block; width: 100%; height: auto; }
 .toolkit-section a { color: var(--teal); font-weight: 700; text-underline-offset: 3px; }
+.toolkit-foundation { padding: 14px 16px; border-left: 3px solid var(--teal); color: var(--muted) !important; background: var(--soft); font-size: 14px !important; line-height: 1.65; }
 .toolkit-ko { display: none; }
 html[data-research-language="ko"] .toolkit-en { display: none; }
 html[data-research-language="ko"] .toolkit-ko { display: block; }
