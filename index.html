@@ -2225,6 +2225,161 @@
       background: var(--teal);
     }
 
+    /* Immersive MONAMI introduction */
+    .hero-stage {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      min-height: min(720px, 76vh);
+      margin: -38px 0 72px;
+      padding: clamp(44px, 7vw, 86px);
+      overflow: hidden;
+      border-radius: 28px;
+      background:
+        linear-gradient(90deg, rgba(3, 15, 30, .96) 0%, rgba(5, 22, 40, .88) 45%, rgba(5, 25, 42, .46) 100%),
+        linear-gradient(0deg, rgba(3, 15, 30, .78), rgba(3, 15, 30, .08)),
+        url("figure/about-research-overview.png") center / cover no-repeat;
+      box-shadow: 0 28px 70px rgba(4, 18, 34, .22);
+    }
+
+    .hero-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, rgba(15, 123, 131, .14), transparent 46%);
+    }
+
+    .hero-stage-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    #about .hero-stage h1 {
+      margin: 0 0 20px;
+      color: #fff;
+      font-size: clamp(72px, 10vw, 142px);
+      font-weight: 850;
+      line-height: .86;
+      letter-spacing: -.075em;
+    }
+
+    .hero-stage-affiliation {
+      max-width: 900px;
+      margin: 0 0 8px;
+      color: rgba(255, 255, 255, .92);
+      font-size: clamp(15px, 1.7vw, 21px);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .hero-stage-affiliation > span:last-child { color: rgba(255, 255, 255, .68); }
+    .hero-stage .acronym-letter { color: #54d4d5; }
+
+    .hero-stage-korean {
+      margin: 0 0 46px;
+      color: rgba(255, 255, 255, .62);
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: .02em;
+    }
+
+    #about .hero-stage h2 {
+      max-width: 760px;
+      margin: 0 0 18px;
+      color: #fff;
+      font-size: clamp(32px, 4.4vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+    }
+
+    .hero-stage-summary {
+      max-width: 700px;
+      margin: 0 0 28px;
+      color: rgba(255, 255, 255, .74);
+      font-size: clamp(16px, 1.7vw, 20px);
+      line-height: 1.65;
+    }
+
+    .hero-stage .button {
+      border-color: #fff;
+      color: var(--navy);
+      background: #fff;
+    }
+
+    .hero-stage .button.secondary {
+      border-color: rgba(255, 255, 255, .46);
+      color: #fff;
+      background: rgba(255, 255, 255, .06);
+      backdrop-filter: blur(8px);
+    }
+
+    #about .hero-grid {
+      padding: 0 clamp(0px, 2vw, 24px);
+    }
+
+    .research-vision {
+      margin-top: 76px;
+      padding: clamp(36px, 5vw, 64px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--navy);
+      box-shadow: 0 20px 50px rgba(11, 31, 58, .13);
+    }
+
+    .research-vision .section-kicker { color: #55d0d1; }
+    .research-vision h2 { max-width: 800px; margin-bottom: 16px; color: #fff; }
+    .vision-intro { max-width: 850px; margin-bottom: 42px; color: rgba(255, 255, 255, .68); font-size: 18px; }
+
+    .vision-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid rgba(255, 255, 255, .2);
+      border-bottom: 1px solid rgba(255, 255, 255, .2);
+    }
+
+    .vision-flow article {
+      position: relative;
+      min-height: 250px;
+      padding: 30px 24px 28px;
+    }
+
+    .vision-flow article + article { border-left: 1px solid rgba(255, 255, 255, .2); }
+    .vision-flow article > span { display: block; margin-bottom: 44px; color: #55d0d1; font-size: 13px; font-weight: 850; letter-spacing: .12em; }
+    .vision-flow h3 { margin-bottom: 12px; color: #fff; font-size: 21px; line-height: 1.25; }
+    .vision-flow p { margin: 0; color: rgba(255, 255, 255, .62); font-size: 14px; line-height: 1.65; }
+
+    .vision-loop {
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, .58);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    @media (max-width: 920px) {
+      .hero-stage { min-height: 660px; background-position: 58% center; }
+      .vision-flow { grid-template-columns: repeat(2, 1fr); }
+      .vision-flow article:nth-child(3) { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .2); }
+      .vision-flow article:nth-child(4) { border-top: 1px solid rgba(255, 255, 255, .2); }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding-top: 38px; }
+      .hero-stage { min-height: 620px; margin: -10px -10px 54px; padding: 34px 24px; border-radius: 20px; background-position: 62% center; }
+      #about .hero-stage h1 { font-size: clamp(56px, 18vw, 82px); line-height: .92; }
+      .hero-stage-affiliation > span:last-child { display: block; margin-top: 4px; }
+      .hero-stage-korean { margin-bottom: 34px; }
+      #about .hero-stage h2 { font-size: clamp(30px, 9vw, 42px); }
+      .research-vision { margin-top: 48px; padding: 30px 22px; border-radius: 20px; }
+      .vision-flow { grid-template-columns: 1fr; }
+      .vision-flow article { min-height: auto; padding: 25px 4px; }
+      .vision-flow article + article { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .2); }
+      .vision-flow article > span { margin-bottom: 20px; }
+      .vision-loop { text-align: left; }
+    }
+
     @keyframes section-enter {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -2269,13 +2424,23 @@
   <main id="main-content">
     <section class="hero" id="about">
       <div class="container">
+        <div class="hero-stage">
+          <div class="hero-stage-content">
+            <p class="site-progress-note">SITE IN PROGRESS · 연구실 홈페이지를 준비하고 있습니다.</p>
+            <h1>MONAMI LAB</h1>
+            <p class="hero-stage-affiliation"><span class="acronym-letter">M</span>ultiphysics f<span class="acronym-letter">O</span>r <span class="acronym-letter">N</span>uclear <span class="acronym-letter">A</span>nalysis, <span class="acronym-letter">M</span>odeling and <span class="acronym-letter">I</span>nnovation <span>· Jeonbuk National University</span></p>
+            <p class="hero-stage-korean" lang="ko">원자력 다물리 해석·모델링 연구실 · Since 2026</p>
+            <h2>Computational science for the next generation of nuclear systems.</h2>
+            <p class="hero-stage-summary">From particle-based high-fidelity analysis to reactor-scale modeling, we connect physics and computation to understand complex nuclear systems.</p>
+            <div class="hero-actions">
+              <a class="button" href="#research">Explore Our Research</a>
+              <a class="button secondary" href="#join">Join MONAMI</a>
+            </div>
+          </div>
+        </div>
+
         <div class="hero-grid">
           <div>
-            <p class="site-progress-note">SITE IN PROGRESS · 연구실 홈페이지를 준비하고 있습니다.</p>
-            <h1>MONAMI Lab <span class="hero-affiliation">@Jeonbuk National University</span></h1>
-            <p class="hero-subtitle" aria-label="Multiphysics fOr Nuclear Analysis, Modeling and Innovation"><span class="acronym-letter">M</span>ultiphysics f<span class="acronym-letter">O</span>r <span class="acronym-letter">N</span>uclear <span class="acronym-letter">A</span>nalysis, <span class="acronym-letter">M</span>odeling and <span class="acronym-letter">I</span>nnovation</p>
-            <p class="hero-lab-name" lang="ko">원자력 다물리 해석·모델링 연구실</p>
-            <p class="hero-since">Since 2026</p>
             <div class="hero-about-me">
               <div class="about-language-row">
                 <p class="section-kicker" data-en="Our Mission" data-ko="연구 소개">연구 소개</p>
@@ -2291,11 +2456,6 @@
                 <p>These capabilities support the prediction and safety assessment of advanced reactors under normal operation, transients, and severe accidents. In the long term, we aim to extend our work toward multiphysics and multiscale analysis involving reactor physics and structural mechanics, establishing a computational foundation for nuclear digital twins that combine physics-based simulation with data.</p>
               </div>
             </div>
-            <div class="hero-actions">
-              <a class="button" href="#research">Explore Our Research</a>
-              <span class="button secondary is-disabled" aria-disabled="true">Meet the Lab</span>
-              <a class="button secondary" href="#join">Join MONAMI</a>
-            </div>
           </div>
 
         </div>
@@ -2303,6 +2463,32 @@
         <figure class="about-overview-visual">
           <img src="figure/about-research-overview.png" alt="Visual overview of MONAMI Lab research from reactor system modeling through multiphysics simulation to digital twins">
         </figure>
+
+        <section class="research-vision" aria-labelledby="research-vision-title">
+          <p class="section-kicker">Research vision</p>
+          <div data-lang="en" lang="en">
+            <h2 id="research-vision-title">Connecting physics, computation, and prediction.</h2>
+            <p class="vision-intro">We build reliable computational pathways from physical models to high-fidelity simulation, integrated analysis, and nuclear digital twins.</p>
+            <div class="vision-flow">
+              <article><span>01</span><h3>Physical Modeling</h3><p>Represent the governing physics of reactor systems and their components.</p></article>
+              <article><span>02</span><h3>High-Fidelity Computing</h3><p>Resolve complex local phenomena using particle methods and GPU parallelization.</p></article>
+              <article><span>03</span><h3>Multiphysics Integration</h3><p>Connect solvers, physical scales, and feedback across reactor behavior.</p></article>
+              <article><span>04</span><h3>Digital Twin</h3><p>Combine physics-based simulation and data for fast, predictive analysis.</p></article>
+            </div>
+            <p class="vision-loop">Each level informs the next—and improved predictions feed back into better physical models.</p>
+          </div>
+          <div data-lang="ko" lang="ko">
+            <h2>물리 모델에서 예측 기술까지 연결합니다.</h2>
+            <p class="vision-intro">물리 모델링, 고정밀 계산, 다물리 통합 해석을 연결하여 원자력 디지털트윈으로 확장할 수 있는 신뢰도 높은 계산 체계를 구축합니다.</p>
+            <div class="vision-flow">
+              <article><span>01</span><h3>물리 모델링</h3><p>원자로 계통과 구성요소를 지배하는 물리 현상을 모델링합니다.</p></article>
+              <article><span>02</span><h3>고정밀 계산</h3><p>입자 기반 수치기법과 GPU 병렬계산으로 복잡한 국소 현상을 해석합니다.</p></article>
+              <article><span>03</span><h3>다물리 통합</h3><p>해석기와 물리 규모를 연결하여 원자로의 상호작용과 피드백을 분석합니다.</p></article>
+              <article><span>04</span><h3>디지털트윈</h3><p>물리 기반 시뮬레이션과 데이터를 결합하여 빠르고 신뢰도 높은 예측을 지향합니다.</p></article>
+            </div>
+            <p class="vision-loop">각 단계의 결과는 다음 단계로 이어지며, 향상된 예측은 다시 물리 모델의 개선으로 연결됩니다.</p>
+          </div>
+        </section>
 
         <div class="about-news">
           <div class="news-heading">
