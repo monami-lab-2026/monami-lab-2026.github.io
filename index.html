@@ -2257,6 +2257,22 @@
       max-width: 900px;
     }
 
+    .hero-language-toggle {
+      position: absolute;
+      top: 28px;
+      right: 30px;
+      z-index: 3;
+      border-color: rgba(255, 255, 255, .45);
+      color: #fff;
+      background: rgba(4, 18, 34, .48);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-language-toggle:hover {
+      border-color: #55d0d1;
+      color: #55d0d1;
+    }
+
     #about .hero-stage h1 {
       margin: 0 0 20px;
       color: #fff;
@@ -2368,6 +2384,7 @@
     @media (max-width: 600px) {
       .hero { padding-top: 38px; }
       .hero-stage { min-height: 620px; margin: -10px -10px 54px; padding: 34px 24px; border-radius: 20px; background-position: 62% center; }
+      .hero-language-toggle { top: 18px; right: 18px; }
       #about .hero-stage h1 { font-size: clamp(56px, 18vw, 82px); line-height: .92; }
       .hero-stage-affiliation > span:last-child { display: block; margin-top: 4px; }
       .hero-stage-korean { margin-bottom: 34px; }
@@ -2425,16 +2442,17 @@
     <section class="hero" id="about">
       <div class="container">
         <div class="hero-stage">
+          <button class="language-toggle hero-language-toggle" type="button" aria-label="Switch introduction to English">EN</button>
           <div class="hero-stage-content">
             <p class="site-progress-note">SITE IN PROGRESS · 연구실 홈페이지를 준비하고 있습니다.</p>
             <h1>MONAMI LAB</h1>
             <p class="hero-stage-affiliation"><span class="acronym-letter">M</span>ultiphysics f<span class="acronym-letter">O</span>r <span class="acronym-letter">N</span>uclear <span class="acronym-letter">A</span>nalysis, <span class="acronym-letter">M</span>odeling and <span class="acronym-letter">I</span>nnovation <span>· Jeonbuk National University</span></p>
             <p class="hero-stage-korean" lang="ko">원자력 다물리 해석·모델링 연구실 · Since 2026</p>
-            <h2>Computational science for the next generation of nuclear systems.</h2>
-            <p class="hero-stage-summary">From particle-based high-fidelity analysis to reactor-scale modeling, we connect physics and computation to understand complex nuclear systems.</p>
+            <h2 data-en="Computational science for the next generation of nuclear systems." data-ko="차세대 원자력 시스템을 위한 계산과학.">차세대 원자력 시스템을 위한 계산과학.</h2>
+            <p class="hero-stage-summary" data-en="From particle-based high-fidelity analysis to reactor-scale modeling, we connect physics and computation to understand complex nuclear systems." data-ko="입자 기반 고정밀 해석부터 원자로 계통 모델링까지, 물리와 계산을 연결하여 복잡한 원자력 시스템을 연구합니다.">입자 기반 고정밀 해석부터 원자로 계통 모델링까지, 물리와 계산을 연결하여 복잡한 원자력 시스템을 연구합니다.</p>
             <div class="hero-actions">
-              <a class="button" href="#research">Explore Our Research</a>
-              <a class="button secondary" href="#join">Join MONAMI</a>
+              <a class="button" href="#research" data-en="Explore Our Research" data-ko="연구 분야 보기">연구 분야 보기</a>
+              <a class="button secondary" href="#join" data-en="Join MONAMI" data-ko="MONAMI 지원하기">MONAMI 지원하기</a>
             </div>
           </div>
         </div>
@@ -2980,7 +2998,7 @@
     const themeToggle = document.querySelector('.theme-toggle');
     const themeIcon = themeToggle.querySelector('span');
     const themeColor = document.querySelector('meta[name="theme-color"]');
-    const languageToggle = document.querySelector('.language-toggle');
+    const languageToggles = [...document.querySelectorAll('.language-toggle')];
     const researchLanguageToggle = document.querySelector('.research-language-toggle');
 
     function applyTheme(theme) {
@@ -3008,19 +3026,23 @@
       document.querySelectorAll('[data-en][data-ko]').forEach((element) => {
         element.textContent = element.dataset[language];
       });
-      languageToggle.textContent = isKorean ? 'EN' : '한글';
-      languageToggle.setAttribute('aria-label', isKorean ? 'Switch introduction to English' : '소개문을 한국어로 전환');
+      languageToggles.forEach((toggle) => {
+        toggle.textContent = isKorean ? 'EN' : '한글';
+        toggle.setAttribute('aria-label', isKorean ? 'Switch introduction to English' : '소개문을 한국어로 전환');
+      });
     }
 
     applyLanguage(document.documentElement.dataset.language || 'ko');
 
-    languageToggle.addEventListener('click', () => {
-      const nextLanguage = document.documentElement.dataset.language === 'ko' ? 'en' : 'ko';
-      applyLanguage(nextLanguage);
-      try {
-        localStorage.setItem('site-language', nextLanguage);
-      } catch (_) {}
-      showSectionFromHash({ scrollToTop: false });
+    languageToggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const nextLanguage = document.documentElement.dataset.language === 'ko' ? 'en' : 'ko';
+        applyLanguage(nextLanguage);
+        try {
+          localStorage.setItem('site-language', nextLanguage);
+        } catch (_) {}
+        showSectionFromHash({ scrollToTop: false });
+      });
     });
 
     const researchTranslatedElements = [...document.querySelectorAll('#research [data-research-ko]')];
