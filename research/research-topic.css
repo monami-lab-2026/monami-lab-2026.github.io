@@ -110,9 +110,9 @@ html[data-research-language="ko"] .reactor-focus-ko { display: block; }
 .msr-figure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
 .modelica-block { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .7fr); gap: 30px; align-items: center; }
 .modelica-block > div > p { margin-bottom: 0; }
-.modelica-validation { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid var(--line); }
-.modelica-validation h4 { margin: 0 0 8px; color: var(--navy); font-size: 19px; }
-.modelica-validation > p { margin: 0 0 18px; color: var(--muted); font-size: 16px; }
+.analysis-results, .modelica-validation { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid var(--line); }
+.analysis-results h4, .modelica-validation h4 { margin: 0 0 8px; color: var(--navy); font-size: 19px; }
+.analysis-results > p, .modelica-validation > p { margin: 0 0 18px; color: var(--muted); font-size: 16px; }
 .detail-card { padding: 28px; border: 1px solid var(--line); border-radius: 20px; background: var(--soft); }
 .detail-card + .detail-card { margin-top: 18px; }
 .detail-card h3 { margin: 0 0 14px; color: var(--navy); font-size: 21px; }

@@ -11,10 +11,14 @@
 
     <article class="focus-block">
       <h3>1. Multi-fidelity MSRE kinetics analysis</h3>
-      <p>Eight-group nuclear data generated from an OpenMC continuous-energy model are connected to a GPU-accelerated three-dimensional nodal solver and a circulating-fuel kinetics model. Steady-state neutron-flux distributions and MSRE pump startup and coastdown transients are assessed against publicly available test data.</p>
-      <div class="msr-figure-grid">
-        <figure><a href="../figure/research/msre-flux-comparison.png" target="_blank" rel="noopener"><img src="../figure/research/msre-flux-comparison.png" alt="Comparison of OpenMC continuous-energy, OpenMC eight-group, and nodal eight-group MSRE radial neutron flux distributions" loading="lazy"></a><figcaption>Steady-state radial flux: OpenMC CE, OpenMC 8G, and nodal 8G.</figcaption></figure>
-        <figure><a href="../figure/research/msre-pump-transient.png" target="_blank" rel="noopener"><img src="../figure/research/msre-pump-transient.png" alt="MSRE pump startup and coastdown reactivity compared with experiment" loading="lazy"></a><figcaption>MSRE pump startup and coastdown transient validation.</figcaption></figure>
+      <p>Group constants are generated from an OpenMC continuous-energy model through energy-group condensation and spatial homogenization. The resulting few-group data are transferred to a GPU-accelerated three-dimensional nodal solver coupled with a circulating-fuel kinetics model.</p>
+      <div class="analysis-results">
+        <h4>Results</h4>
+        <p>Steady-state neutron-flux distributions and MSRE pump startup and coastdown transients are assessed against high-fidelity calculations and publicly available test data.</p>
+        <div class="msr-figure-grid">
+          <figure><a href="../figure/research/msre-flux-comparison.png" target="_blank" rel="noopener"><img src="../figure/research/msre-flux-comparison.png" alt="Comparison of OpenMC continuous-energy, OpenMC eight-group, and nodal eight-group MSRE radial neutron flux distributions" loading="lazy"></a><figcaption>Steady-state radial flux: OpenMC CE, OpenMC 8G, and nodal 8G.</figcaption></figure>
+          <figure><a href="../figure/research/msre-pump-transient.png" target="_blank" rel="noopener"><img src="../figure/research/msre-pump-transient.png" alt="MSRE pump startup and coastdown reactivity compared with experiment" loading="lazy"></a><figcaption>MSRE pump startup and coastdown transient validation.</figcaption></figure>
+        </div>
       </div>
     </article>
 
@@ -39,10 +43,14 @@
 
     <article class="focus-block">
       <h3>1. MSRE 다충실도 중성자 동특성 해석</h3>
-      <p>OpenMC 연속에너지 모델에서 생성한 8군 핵자료를 GPU 가속 3차원 노달 해석기와 흐르는 연료의 동특성 모델에 연결하고 있습니다. 정상상태 중성자속 분포와 MSRE 펌프 기동·정지 과도를 공개 시험자료와 비교하여 계산 체계를 검증하고 있습니다.</p>
-      <div class="msr-figure-grid">
-        <figure><a href="../figure/research/msre-flux-comparison.png" target="_blank" rel="noopener"><img src="../figure/research/msre-flux-comparison.png" alt="OpenMC 연속에너지, OpenMC 8군 및 노달 8군 MSRE 방사형 중성자속 분포 비교" loading="lazy"></a><figcaption>정상상태 방사형 중성자속: OpenMC CE, OpenMC 8G 및 nodal 8G.</figcaption></figure>
-        <figure><a href="../figure/research/msre-pump-transient.png" target="_blank" rel="noopener"><img src="../figure/research/msre-pump-transient.png" alt="MSRE 펌프 기동 및 정지 반응도와 실험자료 비교" loading="lazy"></a><figcaption>MSRE 펌프 기동·정지 과도 검증.</figcaption></figure>
+      <p>OpenMC 연속에너지 모델에서 에너지 군 축소와 공간 균질화를 수행하여 소수군 핵자료를 생산합니다. 생성된 핵자료는 흐르는 연료의 동특성 모델과 결합된 GPU 가속 3차원 노달 해석기로 전달됩니다.</p>
+      <div class="analysis-results">
+        <h4>해석 결과</h4>
+        <p>정상상태 중성자속 분포와 MSRE 펌프 기동·정지 과도 결과를 고충실도 계산 및 공개 시험자료와 비교하여 계산 체계를 검증합니다.</p>
+        <div class="msr-figure-grid">
+          <figure><a href="../figure/research/msre-flux-comparison.png" target="_blank" rel="noopener"><img src="../figure/research/msre-flux-comparison.png" alt="OpenMC 연속에너지, OpenMC 8군 및 노달 8군 MSRE 방사형 중성자속 분포 비교" loading="lazy"></a><figcaption>정상상태 방사형 중성자속: OpenMC CE, OpenMC 8G 및 nodal 8G.</figcaption></figure>
+          <figure><a href="../figure/research/msre-pump-transient.png" target="_blank" rel="noopener"><img src="../figure/research/msre-pump-transient.png" alt="MSRE 펌프 기동 및 정지 반응도와 실험자료 비교" loading="lazy"></a><figcaption>MSRE 펌프 기동·정지 과도 검증.</figcaption></figure>
+        </div>
       </div>
     </article>
 
