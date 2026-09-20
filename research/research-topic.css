@@ -92,6 +92,7 @@ html[data-research-language="ko"] .toolkit-ko { display: block; }
 .solver-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .solver-card { padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--soft); }
 .solver-card h4 { margin: 0 0 5px; color: var(--navy); font-size: 19px; }
+.solver-card h4 span { color: var(--muted); font-size: 13px; font-weight: 750; }
 .solver-card .solver-name { min-height: 44px; margin: 0 0 14px; color: var(--teal); font-size: 12px; font-weight: 750; line-height: 1.45; }
 .solver-card p:last-child { margin: 0; font-size: 15px; line-height: 1.6; }
 .reactor-focus-section { margin-top: 68px; padding-top: 48px; border-top: 1px solid var(--line); }
