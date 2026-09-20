@@ -113,6 +113,9 @@ html[data-research-language="ko"] .reactor-focus-ko { display: block; }
 .analysis-results, .modelica-validation { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid var(--line); }
 .analysis-results h4, .modelica-validation h4 { margin: 0 0 8px; color: var(--navy); font-size: 19px; }
 .analysis-results > p, .modelica-validation > p { margin: 0 0 18px; color: var(--muted); font-size: 16px; }
+.analysis-results .msr-figure-grid { grid-template-columns: 1fr; gap: 0; }
+.analysis-results .msr-figure-grid figure + figure { position: relative; margin-top: 49px; overflow: visible; }
+.analysis-results .msr-figure-grid figure + figure::before { content: ""; position: absolute; top: -25px; left: 0; right: 0; border-top: 1px solid var(--line); }
 .detail-card { padding: 28px; border: 1px solid var(--line); border-radius: 20px; background: var(--soft); }
 .detail-card + .detail-card { margin-top: 18px; }
 .detail-card h3 { margin: 0 0 14px; color: var(--navy); font-size: 21px; }
