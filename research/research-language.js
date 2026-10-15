@@ -1,4 +1,19 @@
 (() => {
+  const themeToggle = document.querySelector('.theme-toggle');
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    if (!themeToggle) return;
+    const isDark = theme === 'dark';
+    themeToggle.querySelector('span').textContent = isDark ? '\u2600' : '\u263E';
+    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  applyTheme(document.documentElement.dataset.theme || 'light');
+  themeToggle?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('color-theme', next); } catch (_) {}
+  });
+
   const button = document.querySelector('.topic-language-toggle');
   if (!button) return;
 
@@ -27,10 +42,8 @@
 
   const pageName = location.pathname.split('/').pop();
   const keywords = keywordSets[pageName];
-  const sideFigure = document.querySelector('.topic-visual-side');
-  if (keywords && sideFigure) {
-    const side = sideFigure.closest('aside');
-    side.classList.add('topic-side');
+  const side = document.querySelector('.topic-side');
+  if (keywords && side) {
     const panel = document.createElement('div');
     panel.className = 'keyword-panel';
     const heading = document.createElement('h3');
@@ -61,4 +74,21 @@
 
   button.addEventListener('click', () => applyLanguage(document.documentElement.dataset.researchLanguage === 'ko' ? 'en' : 'ko'));
   applyLanguage('en');
+
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const targets = [...document.querySelectorAll('.overview > *, .topic-side, .toolkit-section > *, .toolkit-en > *, .toolkit-ko > *, .solver-card, .reactor-focus-section .focus-kicker, .reactor-focus-section h2, .focus-intro, .focus-block, .topic-nav li')];
+    targets.forEach((element) => element.classList.add('reveal'));
+    document.documentElement.classList.add('reveal-ready');
+    const observer = new IntersectionObserver((entries) => {
+      let batch = 0;
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.setProperty('--reveal-delay', `${Math.min(batch, 6) * 70}ms`);
+        batch += 1;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    targets.forEach((element) => observer.observe(element));
+  }
 })();
