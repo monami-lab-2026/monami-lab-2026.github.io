@@ -762,15 +762,12 @@
     html.intro-active .intro { background: #01193c; }
     html.intro-active .intro::after {
       content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-      background: radial-gradient(60% 55% at 50% 50%, rgba(7, 26, 51, .78) 0%, rgba(7, 26, 51, .35) 60%, rgba(7, 26, 51, 0) 100%);
+      background: radial-gradient(55% 50% at 50% 48%, rgba(1, 20, 48, .82) 0%, rgba(1, 20, 48, .45) 60%, rgba(1, 20, 48, .12) 100%);
     }
     .intro .particle-field { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; opacity: 0; transition: opacity 2.4s ease; }
     .intro-gate { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }
     .intro.is-scattering .particle-field { opacity: 1; }
-    .intro::after { opacity: 0; transition: opacity 2s ease; }
-    .intro.is-scattering::after { opacity: 1; }
-    .intro-content { opacity: 0; }
-    .intro.is-scattering .intro-content { opacity: 1; }
+    .intro-gate { opacity: .42; }
     .intro.is-leaving { opacity: 0; visibility: hidden; }
     .intro-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
     .intro-welcome { margin-bottom: 34px; color: var(--cyan); font-size: clamp(15px, 1.6vw, 19px); font-weight: 600; letter-spacing: .32em; text-transform: uppercase; }
@@ -778,10 +775,10 @@
     .intro-wordmark { }
     .intro-wordmark .lab { text-align: center; }
     .intro .hero-acronym { max-width: none; margin-top: 28px; }
-    .intro.is-scattering .intro-welcome { animation: intro-in 1.2s 1.2s cubic-bezier(.2, .7, .2, 1) both; }
-    .intro.is-scattering .hero-place { animation: intro-in 1.2s 1.45s cubic-bezier(.2, .7, .2, 1) both; }
-    .intro.is-scattering .intro-wordmark { animation: intro-in 1.4s 1.7s cubic-bezier(.2, .7, .2, 1) both; }
-    .intro.is-scattering .hero-acronym { animation: intro-in 1.2s 2s cubic-bezier(.2, .7, .2, 1) both; }
+    .intro-welcome { animation: intro-in 1s .2s cubic-bezier(.2, .7, .2, 1) both; }
+    .intro .hero-place { animation: intro-in 1s .35s cubic-bezier(.2, .7, .2, 1) both; }
+    .intro-wordmark { animation: intro-in 1.2s .5s cubic-bezier(.2, .7, .2, 1) both; }
+    .intro .hero-acronym { animation: intro-in 1s .7s cubic-bezier(.2, .7, .2, 1) both; }
     .intro-count { position: absolute; left: 50%; bottom: 34px; width: 64px; height: 64px; transform: translateX(-50%); }
     .intro-count svg { width: 100%; height: 100%; transform: rotate(-90deg); }
     .intro-ring-track { fill: none; stroke: rgba(255, 255, 255, .14); stroke-width: 3; }
@@ -801,8 +798,7 @@
       .intro-skip { top: 18px; bottom: auto; right: 16px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .intro.is-scattering .intro-welcome, .intro.is-scattering .hero-place, .intro.is-scattering .intro-wordmark, .intro.is-scattering .hero-acronym { animation: none; }
-      .intro-content { transition: opacity 1s ease; }
+      .intro-welcome, .intro .hero-place, .intro-wordmark, .intro .hero-acronym { animation: none; }
     }
   </style>
 </head>
