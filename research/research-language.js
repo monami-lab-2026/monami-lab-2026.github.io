@@ -7,7 +7,7 @@
     themeToggle.querySelector('span').textContent = isDark ? '\u2600' : '\u263E';
     themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
   }
-  applyTheme(document.documentElement.dataset.theme || 'light');
+  applyTheme(document.documentElement.dataset.theme || 'dark');
   themeToggle?.addEventListener('click', () => {
     const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     applyTheme(next);

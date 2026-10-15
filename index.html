@@ -4,16 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="MONAMI Lab at Jeonbuk National University develops high-fidelity multiphysics, reactor digital twins, and HPC particle methods for nuclear systems.">
-  <meta name="theme-color" content="#0b2545">
+  <meta name="theme-color" content="#0a1626">
   <title>MONAMI Lab | Multiphysics fOr Nuclear Analysis, Modeling and Innovation</title>
   <script>
     try {
       const savedTheme = localStorage.getItem('color-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.dataset.theme = savedTheme || 'dark';
       document.documentElement.classList.add('page-navigation');
     } catch (_) {
-      document.documentElement.dataset.theme = 'light';
+      document.documentElement.dataset.theme = 'dark';
       document.documentElement.classList.add('page-navigation');
     }
   </script>
@@ -1415,7 +1414,7 @@
       themeColor.setAttribute('content', isDark ? '#0a1626' : '#0b2545');
     }
 
-    applyTheme(document.documentElement.dataset.theme || 'light');
+    applyTheme(document.documentElement.dataset.theme || 'dark');
 
     themeToggle.addEventListener('click', () => {
       const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
