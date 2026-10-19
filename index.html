@@ -884,6 +884,19 @@
       .lecture-panel { grid-template-columns: 1fr; }
       .lecture-board-head { align-items: flex-start; }
     }
+    .lecture-course-list { gap: 0; }
+    .lecture-course { display: flex !important; flex-direction: row !important; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-top: 1px solid var(--line); }
+    .lecture-course:first-child { border-top: 0; padding-top: 0; }
+    .lecture-course-names { display: flex; flex-direction: column; min-width: 0; }
+    html[lang="en"] .lecture-course-names { flex-direction: column-reverse; }
+    .lecture-student-tab {
+      flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px;
+      border: 1px dashed var(--line-strong); border-radius: 999px; background: transparent;
+      color: var(--muted); font: 600 14px var(--font); cursor: not-allowed; opacity: .75;
+    }
+    .lecture-student-tab svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+    .lecture-student-tab small { padding-left: 8px; border-left: 1px solid var(--line-strong); font-size: 12.5px; font-weight: 500; }
+    @media (max-width: 640px) { .lecture-course { flex-direction: column !important; align-items: flex-start; gap: 10px; } }
   </style>
 </head>
 
@@ -1400,20 +1413,26 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker" data-ko="강의">Lecture</p>
-            <h2 data-ko="수업 자료실">Course materials</h2>
+            <h2 data-ko="개설 과목">Courses</h2>
           </div>
-          <p class="section-intro" data-ko="수강생을 위한 공지, 강의자료, 과제를 모아 둔 공간입니다. 수업 시간에 안내한 비밀번호로 들어올 수 있습니다.">Notices, lecture notes, and assignments for enrolled students. Enter the password announced in class to open them.</p>
+          <p class="section-intro" data-ko="이번 학기 개설 과목입니다. 과목별 수강생 전용 공간은 필요할 때 열립니다.">Courses offered this semester. Each course has a students-only area that opens when needed.</p>
         </div>
 
         <div class="lecture-semester">
           <span class="lecture-term" data-ko="2026학년도 2학기">2026 &middot; 2nd semester</span>
           <ul class="lecture-course-list">
-            <li><span class="lecture-course-ko">핵공학개론2</span><span class="lecture-course-en">Introduction to Nuclear Engineering II</span></li>
-            <li><span class="lecture-course-ko">현대핵과학발전과 미래기술: 핵과학, 방사선, 플라즈마</span><span class="lecture-course-en">Modern Nuclear Science and Future Technologies: Nuclear Science, Radiation, and Plasma</span></li>
+            <li class="lecture-course">
+              <div class="lecture-course-names"><span class="lecture-course-ko">핵공학개론2</span><span class="lecture-course-en">Introduction to Nuclear Engineering II</span></div>
+              <button class="lecture-student-tab" type="button" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg><span data-ko="수강생 전용">Students only</span><small data-ko="현재 비활성">Not available</small></button>
+            </li>
+            <li class="lecture-course">
+              <div class="lecture-course-names"><span class="lecture-course-ko">현대핵과학발전과 미래기술: 핵과학, 방사선, 플라즈마</span><span class="lecture-course-en">Modern Nuclear Science and Future Technologies: Nuclear Science, Radiation, and Plasma</span></div>
+              <button class="lecture-student-tab" type="button" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg><span data-ko="수강생 전용">Students only</span><small data-ko="현재 비활성">Not available</small></button>
+            </li>
           </ul>
         </div>
 
-        <form class="lecture-lock" autocomplete="off">
+        <form class="lecture-lock" autocomplete="off" hidden>
           <svg class="lecture-lock-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>
           <div class="lecture-lock-copy">
             <h3 data-ko="수강생 전용">For enrolled students</h3>
@@ -1937,7 +1956,8 @@
        in lecture/content.enc.json, so the public repository never holds readable content. */
     (() => {
       const section = document.querySelector('#lecture');
-      if (!section) return;
+      const lectureLoginEnabled = false; // students-only areas are switched off for now
+      if (!section || !lectureLoginEnabled) return;
       const form = section.querySelector('.lecture-lock');
       const input = section.querySelector('#lecture-password');
       const error = section.querySelector('.lecture-lock-error');
