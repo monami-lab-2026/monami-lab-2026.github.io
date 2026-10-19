@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lecture editor | MONAMI Lab</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root {
+      --navy: #0b2545; --cyan: #00b4d8; --accent: #00799a; --ink: #0f1d2e; --text: #2c3a4b; --muted: #5b6b7d;
+      --line: #dde4eb; --line-strong: #c6d1dc; --paper: #fff; --surface: #f4f7f9; --danger: #d6363b;
+      --font: "Pretendard Variable", Pretendard, Inter, -apple-system, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--surface); color: var(--text); font: 16px/1.6 var(--font); word-break: keep-all; }
+    main { width: min(calc(100% - 32px), 980px); margin: 0 auto; padding: 48px 0 96px; }
+    h1 { margin: 0; color: var(--ink); font-size: 30px; letter-spacing: -0.02em; }
+    .lead { margin: 8px 0 32px; color: var(--muted); }
+    .card { margin-bottom: 20px; padding: 24px; border-radius: 18px; background: var(--paper); border: 1px solid var(--line); }
+    .card h2 { margin: 0 0 4px; color: var(--ink); font-size: 19px; }
+    .card > p { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    input, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper); color: var(--ink); font: 15px var(--font); }
+    textarea { min-height: 54px; resize: vertical; }
+    input:focus, textarea:focus { outline: 2px solid var(--cyan); outline-offset: 1px; border-color: transparent; }
+    .row input { flex: 1; min-width: 200px; }
+    button { padding: 10px 18px; border: 1px solid var(--navy); border-radius: 999px; background: var(--navy); color: #fff; font: 600 14.5px var(--font); cursor: pointer; }
+    button.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+    button.danger { background: transparent; color: var(--danger); border-color: transparent; padding: 6px 10px; }
+    button:disabled { opacity: .5; cursor: default; }
+    .status { margin-top: 12px; font-size: 14.5px; font-weight: 500; }
+    .status.error { color: var(--danger); }
+    .status.ok { color: #138a52; }
+    .course { margin-top: 12px; padding: 20px; border-radius: 14px; background: var(--surface); }
+    .course-title { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .group { margin-top: 14px; }
+    .group h3 { margin: 0 0 8px; color: var(--accent); font-size: 15px; }
+    .item { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 14px; margin-bottom: 10px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); }
+    .item .wide { grid-column: 1 / -1; }
+    .item label { display: block; color: var(--muted); font-size: 12.5px; font-weight: 600; margin-bottom: 3px; }
+    .item-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; }
+    .add { margin-top: 2px; padding: 7px 14px; font-size: 13.5px; }
+    [hidden] { display: none !important; }
+    ol.steps { margin: 0; padding-left: 20px; color: var(--text); font-size: 14.5px; }
+    code { padding: 1px 6px; border-radius: 6px; background: var(--surface); font-size: 13.5px; }
+    @media (max-width: 640px) { .course-title, .item { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>강의 자료 편집기</h1>
+  <p class="lead">홈페이지 Lecture 메뉴의 내용을 편집하고 비밀번호로 암호화합니다. 모든 작업은 이 브라우저 안에서만 이루어지고, 비밀번호와 원문은 어디에도 전송·저장되지 않습니다.</p>
+
+  <section class="card" id="unlock-card">
+    <h2>1. 현재 내용 불러오기</h2>
+    <p>지금 사이트에 올라가 있는 <code>content.enc.json</code>을 현재 비밀번호로 엽니다.</p>
+    <form class="row" id="unlock-form" autocomplete="off">
+      <input type="password" id="current-password" placeholder="현재 비밀번호" required>
+      <button type="submit">불러오기</button>
+      <button type="button" class="ghost" id="start-blank">빈 상태로 새로 시작</button>
+    </form>
+    <p class="status" id="unlock-status"></p>
+  </section>
+
+  <section class="card" id="edit-card" hidden>
+    <h2>2. 내용 편집</h2>
+    <p>항목마다 제목(한/영), 날짜, 링크, 메모를 입력하세요. 링크가 없으면 비워 두면 됩니다. 영어 칸을 비우면 한국어가 그대로 보입니다.</p>
+    <div id="courses"></div>
+  </section>
+
+  <section class="card" id="save-card" hidden>
+    <h2>3. 암호화해서 저장</h2>
+    <p>비밀번호를 바꾸지 않으려면 현재 비밀번호를 그대로 입력하세요. 짧은 비밀번호는 뚫릴 수 있으니 10자 이상, 단어 여러 개를 이어 쓰는 방식을 권장합니다.</p>
+    <form class="row" id="save-form" autocomplete="off">
+      <input type="password" id="new-password" placeholder="비밀번호" required minlength="8">
+      <input type="password" id="new-password-2" placeholder="비밀번호 확인" required minlength="8">
+      <button type="submit">암호화 후 다운로드</button>
+    </form>
+    <p class="status" id="save-status"></p>
+    <ol class="steps">
+      <li>다운로드된 <code>content.enc.json</code>을 저장소의 <code>lecture</code> 폴더에 덮어씁니다.</li>
+      <li>GitHub Desktop에서 커밋하고 Push origin을 누릅니다.</li>
+      <li>1~2분 뒤 사이트의 Lecture 메뉴에서 새 비밀번호로 확인합니다.</li>
+    </ol>
+  </section>
+</main>
+
+<script>
+  const ITERATIONS = 600000;
+  const SECTION_NAMES = [['공지', 'Notices'], ['강의자료', 'Lecture notes'], ['과제 · 연습문제', 'Assignments & practice']];
+  const BLANK = {
+    version: 1,
+    courses: [
+      { title_ko: '핵공학개론2', title_en: 'Introduction to Nuclear Engineering II' },
+      { title_ko: '현대핵과학발전과 미래기술: 핵과학, 방사선, 플라즈마', title_en: 'Modern Nuclear Science and Future Technologies: Nuclear Science, Radiation, and Plasma' }
+    ].map((course) => ({ ...course, sections: SECTION_NAMES.map(([ko, en]) => ({ title_ko: ko, title_en: en, items: [] })) }))
+  };
+  let data = null;
+
+  const $ = (selector) => document.querySelector(selector);
+  const toB64 = (bytes) => btoa(String.fromCharCode(...new Uint8Array(bytes)));
+  const fromB64 = (text) => Uint8Array.from(atob(text), (c) => c.charCodeAt(0));
+
+  async function deriveKey(password, salt, usage, iterations = ITERATIONS) {
+    const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations, hash: 'SHA-256' }, material, { name: 'AES-GCM', length: 256 }, false, [usage]);
+  }
+
+  function setStatus(element, message, kind) {
+    element.textContent = message;
+    element.className = `status ${kind || ''}`;
+  }
+
+  function field(label, value, onInput, { wide = false, multiline = false } = {}) {
+    const wrap = document.createElement('div');
+    if (wide) wrap.className = 'wide';
+    const caption = document.createElement('label');
+    caption.textContent = label;
+    const input = document.createElement(multiline ? 'textarea' : 'input');
+    input.value = value || '';
+    input.addEventListener('input', () => onInput(input.value));
+    wrap.append(caption, input);
+    return wrap;
+  }
+
+  function render() {
+    const root = $('#courses');
+    root.innerHTML = '';
+    data.courses.forEach((course) => {
+      const box = document.createElement('div');
+      box.className = 'course';
+      const title = document.createElement('div');
+      title.className = 'course-title';
+      title.append(
+        field('과목명 (한국어)', course.title_ko, (v) => { course.title_ko = v; }),
+        field('Course title (English)', course.title_en, (v) => { course.title_en = v; })
+      );
+      box.append(title);
+      course.sections.forEach((group) => {
+        const groupBox = document.createElement('div');
+        groupBox.className = 'group';
+        const heading = document.createElement('h3');
+        heading.textContent = `${group.title_ko} · ${group.title_en}`;
+        groupBox.append(heading);
+        group.items.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'item';
+          card.append(
+            field('제목 (한국어)', item.title_ko, (v) => { item.title_ko = v; }),
+            field('Title (English)', item.title_en, (v) => { item.title_en = v; }),
+            field('날짜 (예: 2026-10-20)', item.date, (v) => { item.date = v; }),
+            field('링크 URL', item.url, (v) => { item.url = v.trim(); }),
+            field('메모 (한국어)', item.note_ko, (v) => { item.note_ko = v; }, { multiline: true }),
+            field('Note (English)', item.note_en, (v) => { item.note_en = v; }, { multiline: true })
+          );
+          const actions = document.createElement('div');
+          actions.className = 'item-actions';
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'danger';
+          remove.textContent = '이 항목 삭제';
+          remove.addEventListener('click', () => { group.items.splice(index, 1); render(); });
+          actions.append(remove);
+          card.append(actions);
+          groupBox.append(card);
+        });
+        const add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'ghost add';
+        add.textContent = `+ ${group.title_ko} 항목 추가`;
+        add.addEventListener('click', () => { group.items.push({ title_ko: '', title_en: '', date: '', url: '', note_ko: '', note_en: '' }); render(); });
+        groupBox.append(add);
+        box.append(groupBox);
+      });
+      root.append(box);
+    });
+  }
+
+  function showEditor() {
+    $('#edit-card').hidden = false;
+    $('#save-card').hidden = false;
+    render();
+  }
+
+  $('#unlock-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const status = $('#unlock-status');
+    setStatus(status, '여는 중…');
+    try {
+      const response = await fetch('content.enc.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error('파일을 찾을 수 없습니다.');
+      const box = await response.json();
+      const key = await deriveKey($('#current-password').value, fromB64(box.salt), 'decrypt', box.iter);
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromB64(box.iv) }, key, fromB64(box.ct));
+      data = JSON.parse(new TextDecoder().decode(plain));
+      $('#new-password').value = $('#current-password').value;
+      $('#new-password-2').value = $('#current-password').value;
+      setStatus(status, '불러왔습니다. 아래에서 편집하세요.', 'ok');
+      showEditor();
+    } catch (error) {
+      setStatus(status, error.message === '파일을 찾을 수 없습니다.' ? error.message : '비밀번호가 맞지 않습니다.', 'error');
+    }
+  });
+
+  $('#start-blank').addEventListener('click', () => {
+    data = structuredClone(BLANK);
+    setStatus($('#unlock-status'), '빈 상태로 시작했습니다. 저장하면 기존 내용을 대체합니다.', 'ok');
+    showEditor();
+  });
+
+  $('#save-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const status = $('#save-status');
+    const password = $('#new-password').value;
+    if (password !== $('#new-password-2').value) { setStatus(status, '두 비밀번호가 다릅니다.', 'error'); return; }
+    setStatus(status, '암호화하는 중…');
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const key = await deriveKey(password, salt, 'encrypt');
+    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(JSON.stringify(data)));
+    const box = { v: 1, kdf: 'PBKDF2-SHA256', iter: ITERATIONS, salt: toB64(salt), iv: toB64(iv), ct: toB64(ct) };
+    const blob = new Blob([JSON.stringify(box)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'content.enc.json';
+    link.click();
+    URL.revokeObjectURL(link.href);
+    setStatus(status, 'content.enc.json을 내려받았습니다. 아래 순서대로 올려 주세요.', 'ok');
+  });
+</script>
+</body>
+</html>

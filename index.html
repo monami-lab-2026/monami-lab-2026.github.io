@@ -824,6 +824,66 @@
     .lang-toggle:hover { border-color: var(--line-strong); }
     html:not([lang="ko"]) .position-list li::before { content: "Open"; }
     @media (max-width: 900px) { .nav-links li:has(.lang-toggle) { order: 9; padding-top: 14px; } .lang-toggle { margin: 0; } }
+    /* lecture (encrypted course materials) */
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .lecture-semester { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 12px 40px; margin-bottom: 40px; padding: 26px 0; border-top: 2px solid var(--navy); border-bottom: 1px solid var(--line); }
+    html[data-theme="dark"] .lecture-semester { border-top-color: var(--cyan); }
+    .lecture-term { color: var(--accent); font-size: 16px; font-weight: 650; }
+    .lecture-course-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+    .lecture-course-list li { display: flex; flex-direction: column; }
+    .lecture-course-ko { color: var(--ink); font-size: 19px; font-weight: 650; }
+    .lecture-course-en { color: var(--muted); font-size: 14.5px; }
+    html[lang="en"] .lecture-course-list li { flex-direction: column-reverse; }
+    html[lang="en"] .lecture-course-en { color: var(--ink); font-size: 19px; font-weight: 650; }
+    html[lang="en"] .lecture-course-ko { color: var(--muted); font-size: 14.5px; font-weight: 400; }
+
+    .lecture-lock {
+      display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(280px, 380px); gap: 18px 28px; align-items: center;
+      padding: 30px 32px; border-radius: var(--radius-l); background: var(--surface);
+    }
+    .lecture-lock[hidden], .lecture-board[hidden], .lecture-lock-error[hidden] { display: none; }
+    .lecture-lock-icon { width: 44px; height: 44px; fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; }
+    .lecture-lock-copy h3 { font-size: 20px; font-weight: 700; }
+    .lecture-lock-copy p { margin-top: 4px; color: var(--muted); font-size: 15px; }
+    .lecture-lock-field { display: flex; gap: 10px; }
+    .lecture-lock-field input {
+      flex: 1; min-width: 0; height: 46px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 999px;
+      background: var(--paper); color: var(--ink); font: 500 15px var(--font);
+    }
+    .lecture-lock-field input:focus { outline: 2px solid var(--cyan); outline-offset: 1px; border-color: transparent; }
+    .lecture-lock-error { grid-column: 2 / -1; color: #e5484d; font-size: 14.5px; font-weight: 500; }
+    .lecture-lock.is-busy .button { opacity: .6; pointer-events: none; }
+    .lecture-lock.is-shaking { animation: lecture-shake .4s ease; }
+    @keyframes lecture-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+
+    .lecture-board-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 26px; }
+    .lecture-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .lecture-tab {
+      max-width: 100%; padding: 10px 18px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent;
+      color: var(--muted); font: 600 15px var(--font); text-align: left; cursor: pointer;
+    }
+    .lecture-tab[aria-selected="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+    html[data-theme="dark"] .lecture-tab[aria-selected="true"] { background: var(--cyan); border-color: var(--cyan); color: var(--navy-deep); }
+    .lecture-signout { flex: none; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: 600 13.5px var(--font); cursor: pointer; }
+    .lecture-signout:hover { color: var(--ink); border-color: var(--line-strong); }
+    .lecture-panel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .lecture-column { padding: 24px; border-radius: var(--radius-l); background: var(--surface); }
+    .lecture-column h3 { margin-bottom: 14px; font-size: 17px; font-weight: 700; }
+    .lecture-items { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+    .lecture-items li { padding: 12px 0; border-top: 1px solid var(--line); }
+    .lecture-items li:first-child { border-top: 0; padding-top: 0; }
+    .lecture-items a, .lecture-items strong { color: var(--ink); font-size: 15.5px; font-weight: 600; text-decoration: none; }
+    .lecture-items a:hover { color: var(--accent); }
+    .lecture-items time { display: block; margin-bottom: 2px; color: var(--accent); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .lecture-items p { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .lecture-empty { color: var(--muted); font-size: 14.5px; }
+    @media (max-width: 900px) {
+      .lecture-semester { grid-template-columns: 1fr; }
+      .lecture-lock { grid-template-columns: auto minmax(0, 1fr); padding: 24px; }
+      .lecture-lock-field, .lecture-lock-error { grid-column: 1 / -1; }
+      .lecture-panel { grid-template-columns: 1fr; }
+      .lecture-board-head { align-items: flex-start; }
+    }
   </style>
 </head>
 
@@ -864,6 +924,7 @@
         <li><a href="#research" data-ko="연구">Research</a></li>
         <li><a href="#people" data-ko="구성원">People</a></li>
         <li><a href="#publications" data-ko="논문">Publications</a></li>
+        <li><a href="#lecture" data-ko="강의">Lecture</a></li>
         <li><a href="#contact" data-ko="연락처">Contact</a></li>
         <li><a class="nav-cta" href="#join" data-ko="함께하기">Join Us</a></li>
         <li>
@@ -1334,6 +1395,48 @@
       </div>
     </section>
 
+    <section id="lecture">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-ko="강의">Lecture</p>
+            <h2 data-ko="수업 자료실">Course materials</h2>
+          </div>
+          <p class="section-intro" data-ko="수강생을 위한 공지, 강의자료, 과제를 모아 둔 공간입니다. 수업 시간에 안내한 비밀번호로 들어올 수 있습니다.">Notices, lecture notes, and assignments for enrolled students. Enter the password announced in class to open them.</p>
+        </div>
+
+        <div class="lecture-semester">
+          <span class="lecture-term" data-ko="2026학년도 2학기">2026 &middot; 2nd semester</span>
+          <ul class="lecture-course-list">
+            <li><span class="lecture-course-ko">핵공학개론2</span><span class="lecture-course-en">Introduction to Nuclear Engineering II</span></li>
+            <li><span class="lecture-course-ko">현대핵과학발전과 미래기술: 핵과학, 방사선, 플라즈마</span><span class="lecture-course-en">Modern Nuclear Science and Future Technologies: Nuclear Science, Radiation, and Plasma</span></li>
+          </ul>
+        </div>
+
+        <form class="lecture-lock" autocomplete="off">
+          <svg class="lecture-lock-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg>
+          <div class="lecture-lock-copy">
+            <h3 data-ko="수강생 전용">For enrolled students</h3>
+            <p data-ko="비밀번호를 입력하면 이 브라우저 탭을 닫을 때까지 자료가 열려 있습니다.">Enter the password to open the materials. They stay open until you close this tab.</p>
+          </div>
+          <div class="lecture-lock-field">
+            <label class="visually-hidden" for="lecture-password" data-ko="비밀번호">Password</label>
+            <input id="lecture-password" type="password" name="password" autocomplete="current-password" placeholder="Password" data-ko-placeholder="비밀번호" required>
+            <button class="button" type="submit" data-ko="열기">Unlock</button>
+          </div>
+          <p class="lecture-lock-error" role="alert" hidden data-ko="비밀번호가 맞지 않습니다. 다시 입력해 주세요.">That password didn&rsquo;t work. Please try again.</p>
+        </form>
+
+        <div class="lecture-board" hidden>
+          <div class="lecture-board-head">
+            <div class="lecture-tabs" role="tablist" aria-label="Courses"></div>
+            <button class="lecture-signout" type="button" data-ko="잠그기">Lock</button>
+          </div>
+          <div class="lecture-panel"></div>
+        </div>
+      </div>
+    </section>
+
     <section id="join">
       <div class="container">
         <div class="section-heading">
@@ -1533,6 +1636,10 @@
         if (element.dataset.en === undefined) element.dataset.en = element.innerHTML;
         element.innerHTML = isKorean ? element.dataset.ko : element.dataset.en;
       });
+      document.querySelectorAll('[data-ko-placeholder]').forEach((element) => {
+        if (element.dataset.enPlaceholder === undefined) element.dataset.enPlaceholder = element.placeholder;
+        element.placeholder = isKorean ? element.dataset.koPlaceholder : element.dataset.enPlaceholder;
+      });
       languageToggle.setAttribute('aria-label', isKorean ? 'View in English' : '한국어로 보기');
     }
 
@@ -1563,6 +1670,7 @@
       research: 'Research',
       people: 'People',
       publications: 'Publications',
+      lecture: 'Lecture',
       join: 'Join Us',
       contact: 'Contact'
     };
@@ -1823,6 +1931,114 @@
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
       targets.forEach((element) => observer.observe(element));
+    })();
+
+    /* Lecture: course materials are stored AES-GCM encrypted (key = PBKDF2 of the password)
+       in lecture/content.enc.json, so the public repository never holds readable content. */
+    (() => {
+      const section = document.querySelector('#lecture');
+      if (!section) return;
+      const form = section.querySelector('.lecture-lock');
+      const input = section.querySelector('#lecture-password');
+      const error = section.querySelector('.lecture-lock-error');
+      const board = section.querySelector('.lecture-board');
+      const tabs = section.querySelector('.lecture-tabs');
+      const panel = section.querySelector('.lecture-panel');
+      const signOut = section.querySelector('.lecture-signout');
+      const storageKey = 'monami-lecture';
+      let content = null;
+      let activeCourse = 0;
+
+      const b64 = (text) => Uint8Array.from(atob(text), (c) => c.charCodeAt(0));
+      const isKorean = () => document.documentElement.lang === 'ko';
+      const pick = (item, key) => (isKorean() ? item[`${key}_ko`] || item[`${key}_en`] : item[`${key}_en`] || item[`${key}_ko`]) || '';
+      const escapeHtml = (text) => String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+      async function decrypt(password) {
+        const response = await fetch('lecture/content.enc.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('missing');
+        const box = await response.json();
+        const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+        const key = await crypto.subtle.deriveKey(
+          { name: 'PBKDF2', salt: b64(box.salt), iterations: box.iter, hash: 'SHA-256' },
+          material, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+        );
+        const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(box.iv) }, key, b64(box.ct));
+        return JSON.parse(new TextDecoder().decode(plain));
+      }
+
+      function render() {
+        if (!content) return;
+        const courses = content.courses || [];
+        tabs.innerHTML = courses.map((course, index) =>
+          `<button class="lecture-tab" type="button" role="tab" aria-selected="${index === activeCourse}" data-index="${index}">${escapeHtml(pick(course, 'title'))}</button>`
+        ).join('');
+        const course = courses[activeCourse];
+        if (!course) { panel.innerHTML = ''; return; }
+        panel.innerHTML = (course.sections || []).map((group) => {
+          const items = group.items || [];
+          const list = items.length
+            ? `<ul class="lecture-items">${items.map((item) => {
+                const title = escapeHtml(pick(item, 'title'));
+                const head = item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${title} ↗</a>` : `<strong>${title}</strong>`;
+                const date = item.date ? `<time>${escapeHtml(item.date)}</time>` : '';
+                const note = pick(item, 'note') ? `<p>${escapeHtml(pick(item, 'note'))}</p>` : '';
+                return `<li>${date}${head}${note}</li>`;
+              }).join('')}</ul>`
+            : `<p class="lecture-empty">${isKorean() ? '아직 등록된 내용이 없습니다.' : 'Nothing posted yet.'}</p>`;
+          return `<div class="lecture-column"><h3>${escapeHtml(pick(group, 'title'))}</h3>${list}</div>`;
+        }).join('');
+      }
+
+      function open(data) {
+        content = data;
+        form.hidden = true;
+        board.hidden = false;
+        render();
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        error.hidden = true;
+        form.classList.add('is-busy');
+        try {
+          const data = await decrypt(input.value);
+          try { sessionStorage.setItem(storageKey, JSON.stringify(data)); } catch (_) {}
+          input.value = '';
+          open(data);
+        } catch (_) {
+          error.hidden = false;
+          form.classList.remove('is-shaking');
+          void form.offsetWidth;
+          form.classList.add('is-shaking');
+          input.select();
+        } finally {
+          form.classList.remove('is-busy');
+        }
+      });
+
+      tabs.addEventListener('click', (event) => {
+        const tab = event.target.closest('.lecture-tab');
+        if (!tab) return;
+        activeCourse = Number(tab.dataset.index);
+        render();
+      });
+
+      signOut.addEventListener('click', () => {
+        try { sessionStorage.removeItem(storageKey); } catch (_) {}
+        content = null;
+        board.hidden = true;
+        form.hidden = false;
+        panel.innerHTML = '';
+        tabs.innerHTML = '';
+      });
+
+      document.querySelector('.lang-toggle')?.addEventListener('click', () => requestAnimationFrame(render));
+
+      try {
+        const saved = sessionStorage.getItem(storageKey);
+        if (saved) open(JSON.parse(saved));
+      } catch (_) {}
     })();
 
     document.querySelector('#current-year').textContent = new Date().getFullYear();
