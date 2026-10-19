@@ -801,16 +801,15 @@
     @media (prefers-reduced-motion: reduce) {
       .intro-welcome, .intro .hero-place, .intro-wordmark, .intro .hero-acronym { animation: none; }
     }
-    .hero-gloss {
-      display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
-      margin: 0 0 14px; padding-left: .3em; color: var(--on-dark-muted); font-size: 16px; line-height: 1.4;
-    }
-    .gloss-word { color: #fff; font-style: italic; font-weight: 500; letter-spacing: .02em; }
-    .gloss-ipa { color: var(--cyan); font-weight: 600; font-size: .9em; }
-    .gloss-pos { font-style: italic; opacity: .75; }
-    .gloss-def { position: relative; padding-left: 14px; }
-    .gloss-def::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 1px; background: currentColor; opacity: .6; }
-    @media (max-width: 640px) { .hero-gloss { font-size: 14px; gap: 2px 10px; } }
+    .hero-gloss { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; padding-left: .2em; }
+    .hero-gloss p { margin: 0; color: var(--on-dark); font-size: 16.5px; line-height: 1.55; }
+    .hero-gloss em { font-style: normal; color: #fff; font-weight: 600; }
+    .gloss-word { color: var(--cyan); font-style: italic; font-weight: 600; letter-spacing: .02em; }
+    .gloss-sub { color: var(--on-dark-muted); font-size: 15px; }
+    .gloss-mark { flex: none; width: 40px; height: 24px; fill: none; stroke-width: 1.6; }
+    .gloss-mark circle:first-child { stroke: #fff; opacity: .8; }
+    .gloss-mark circle:last-child { stroke: var(--cyan); }
+    @media (max-width: 640px) { .hero-gloss { align-items: flex-start; gap: 10px; } .hero-gloss p { font-size: 14.5px; } .gloss-sub { font-size: 13.5px; } .gloss-mark { width: 32px; margin-top: 2px; } }
   </style>
 </head>
 
@@ -866,7 +865,10 @@
         <canvas class="particle-field" aria-hidden="true"></canvas>
         <div class="container hero-inner">
           <p class="hero-place"><span>Jeonbuk National University</span><span>Since 2026</span></p>
-          <p class="hero-gloss" lang="fr"><span class="gloss-word">mon ami</span><span class="gloss-ipa">Fr.</span><span class="gloss-pos">n.</span><span class="gloss-def" lang="en">&ldquo;my friend&rdquo;</span></p>
+          <div class="hero-gloss">
+            <svg class="gloss-mark" viewBox="0 0 40 24" aria-hidden="true"><circle cx="14" cy="12" r="9"/><circle cx="26" cy="12" r="9"/></svg>
+            <p><span class="gloss-word" lang="fr">&ldquo;mon ami&rdquo;</span> means <em>&ldquo;my friend&rdquo;</em> in French.<br><span class="gloss-sub">A lab where we explore, question, and grow together&mdash;like friends.</span></p>
+          </div>
           <h1 class="hero-wordmark">MONAMI<span class="lab">LAB</span></h1>
           <p class="hero-acronym"><span class="acronym-letter">M</span>ultiphysics f<span class="acronym-letter">O</span>r <span class="acronym-letter">N</span>uclear <span class="acronym-letter">A</span>nalysis, <span class="acronym-letter">M</span>odeling and <span class="acronym-letter">I</span>nnovation</p>
           <h2 class="hero-statement">We pursue the future of nuclear energy through computational science.</h2>
