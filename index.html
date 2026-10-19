@@ -1955,9 +1955,14 @@
       const escapeHtml = (text) => String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
       async function decrypt(password) {
-        const response = await fetch('lecture/content.enc.json', { cache: 'no-store' });
-        if (!response.ok) throw new Error('missing');
-        const box = await response.json();
+        let box;
+        try {
+          const response = await fetch('lecture/content.enc.json', { cache: 'no-store' });
+          if (!response.ok) throw new Error('missing');
+          box = await response.json();
+        } catch (_) {
+          throw new Error('missing');
+        }
         const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
         const key = await crypto.subtle.deriveKey(
           { name: 'PBKDF2', salt: b64(box.salt), iterations: box.iter, hash: 'SHA-256' },
@@ -2006,7 +2011,11 @@
           try { sessionStorage.setItem(storageKey, JSON.stringify(data)); } catch (_) {}
           input.value = '';
           open(data);
-        } catch (_) {
+        } catch (failure) {
+          const missing = failure && failure.message === 'missing';
+          error.textContent = missing
+            ? (isKorean() ? '강의 자료 파일을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.' : 'Could not load the course files. Please try again shortly.')
+            : (isKorean() ? '비밀번호가 맞지 않습니다. 다시 입력해 주세요.' : 'That password didn’t work. Please try again.');
           error.hidden = false;
           form.classList.remove('is-shaking');
           void form.offsetWidth;
