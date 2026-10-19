@@ -70,10 +70,17 @@
     button.textContent = isKorean ? 'EN' : '한글';
     button.setAttribute('aria-label', isKorean ? 'Switch research content to English' : '연구 내용을 한국어로 전환');
     document.documentElement.dataset.researchLanguage = language;
+    document.documentElement.lang = isKorean ? 'ko' : 'en';
   }
 
-  button.addEventListener('click', () => applyLanguage(document.documentElement.dataset.researchLanguage === 'ko' ? 'en' : 'ko'));
-  applyLanguage('en');
+  button.addEventListener('click', () => {
+    const next = document.documentElement.dataset.researchLanguage === 'ko' ? 'en' : 'ko';
+    applyLanguage(next);
+    try { localStorage.setItem('site-language', next); } catch (_) {}
+  });
+  let initialLanguage = 'en';
+  try { initialLanguage = localStorage.getItem('site-language') || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en'); } catch (_) {}
+  applyLanguage(initialLanguage);
 
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const targets = [...document.querySelectorAll('.overview > *, .topic-side, .toolkit-section > *, .toolkit-en > *, .toolkit-ko > *, .solver-card, .reactor-focus-section .focus-kicker, .reactor-focus-section h2, .focus-intro, .focus-block, .topic-nav li')];
