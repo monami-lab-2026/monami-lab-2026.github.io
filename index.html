@@ -897,6 +897,12 @@
     .lecture-student-tab svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
     .lecture-student-tab small { padding-left: 8px; border-left: 1px solid var(--line-strong); font-size: 12.5px; font-weight: 500; }
     @media (max-width: 640px) { .lecture-course { flex-direction: column !important; align-items: flex-start; gap: 10px; } }
+    .member-links { display: flex; gap: 8px; margin-top: 12px; }
+    .member-link { padding: 5px 12px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--ink); font-size: 13px; font-weight: 600; text-decoration: none; }
+    .member-link.is-disabled { border-style: dashed; color: var(--muted); opacity: .6; cursor: not-allowed; }
+    .member-interest { margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .member-interest span { color: var(--accent); font-weight: 600; margin-right: 6px; }
+    .member-interest em { font-style: italic; }
   </style>
 </head>
 
@@ -1154,6 +1160,11 @@
               <p class="member-role" data-ko="학부연구생">Undergraduate researcher</p>
               <p class="member-period"><time datetime="2026-11">2026.11</time> ~</p>
               <p class="member-email"><a href="mailto:mansik030525@naver.com">mansik030525@naver.com</a></p>
+              <p class="member-interest"><span data-ko="관심 분야">Interests</span> <em data-ko="미정">To be determined</em></p>
+              <div class="member-links">
+                <span class="member-link is-disabled" aria-disabled="true" title="Coming soon">CV</span>
+                <span class="member-link is-disabled" aria-disabled="true" title="Coming soon" data-ko="논문">Publications</span>
+              </div>
             </li>
             <li class="member-card">
               <img src="figure/people/jeongwoo-lee.png" alt="Illustrated portrait of Jeongwoo Lee" loading="lazy">
@@ -1161,6 +1172,11 @@
               <p class="member-role" data-ko="학부연구생">Undergraduate researcher</p>
               <p class="member-period"><time datetime="2026-11">2026.11</time> ~</p>
               <p class="member-email"><a href="mailto:jwl009911@jbnu.ac.kr">jwl009911@jbnu.ac.kr</a></p>
+              <p class="member-interest"><span data-ko="관심 분야">Interests</span> <em data-ko="미정">To be determined</em></p>
+              <div class="member-links">
+                <span class="member-link is-disabled" aria-disabled="true" title="Coming soon">CV</span>
+                <span class="member-link is-disabled" aria-disabled="true" title="Coming soon" data-ko="논문">Publications</span>
+              </div>
             </li>
             <li class="member-card">
               <img src="figure/people/minju-choi.png" alt="Illustrated portrait of Minju Choi" loading="lazy">
@@ -1168,6 +1184,11 @@
               <p class="member-role" data-ko="학부연구생">Undergraduate researcher</p>
               <p class="member-period"><time datetime="2026-11">2026.11</time> ~</p>
               <p class="member-email"><a href="mailto:qwerplm3847@naver.com">qwerplm3847@naver.com</a></p>
+              <p class="member-interest"><span data-ko="관심 분야">Interests</span> <em data-ko="미정">To be determined</em></p>
+              <div class="member-links">
+                <span class="member-link is-disabled" aria-disabled="true" title="Coming soon">CV</span>
+                <span class="member-link is-disabled" aria-disabled="true" title="Coming soon" data-ko="논문">Publications</span>
+              </div>
             </li>
           </ul>
         </div>
