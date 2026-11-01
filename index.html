@@ -904,6 +904,17 @@
     .member-interest span { color: var(--accent); font-weight: 600; margin-right: 6px; }
     .member-interest em { font-style: italic; }
     .member-chick { font-style: normal; margin-left: 2px; }
+    .lecture-course-actions { display: contents; }
+    .lecture-course { flex-wrap: wrap; }
+    .lecture-course-names { flex: 1 1 320px; }
+    .lecture-guide-link {
+      flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
+      background: var(--navy); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none;
+    }
+    .lecture-guide-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+    .lecture-guide-link:hover { background: #12345e; }
+    html[data-theme="dark"] .lecture-guide-link { background: var(--cyan); color: var(--navy-deep); }
+    html[data-theme="dark"] .lecture-guide-link:hover { background: #45d4ef; }
   </style>
 </head>
 
@@ -1445,7 +1456,8 @@
           <ul class="lecture-course-list">
             <li class="lecture-course">
               <div class="lecture-course-names"><span class="lecture-course-ko">핵공학개론2</span><span class="lecture-course-en">Introduction to Nuclear Engineering II</span></div>
-              <button class="lecture-student-tab" type="button" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg><span data-ko="수강생 전용">Students only</span><small data-ko="현재 비활성">Not available</small></button>
+              <a class="lecture-guide-link" href="lecture/ne2-guide.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg><span data-ko="학습 길잡이">Study guide</span></a>
+              <div class="lecture-course-actions"><button class="lecture-student-tab" type="button" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></svg><span data-ko="수강생 전용">Students only</span><small data-ko="현재 비활성">Not available</small></button></div>
             </li>
             <li class="lecture-course">
               <div class="lecture-course-names"><span class="lecture-course-ko">현대핵과학발전과 미래기술: 핵과학, 방사선, 플라즈마</span><span class="lecture-course-en">Modern Nuclear Science and Future Technologies: Nuclear Science, Radiation, and Plasma</span></div>
