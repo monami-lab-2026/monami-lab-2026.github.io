@@ -531,7 +531,10 @@
     .contact-links a > span:last-child { color: var(--ink); font-weight: 600; }
     .contact-links a:hover > span:last-child { color: var(--accent); }
     .contact-map { width: 100%; height: 420px; border: 0; border-radius: var(--radius-l); background: var(--surface); }
-    html[data-theme="dark"] .contact-map { filter: invert(.9) hue-rotate(180deg) saturate(.6); }
+    .contact-map-video { margin: 0; }
+    video.contact-map { display: block; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #0b2545; }
+    .contact-map-video figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-top: 10px; color: var(--muted); font-size: 13.5px; }
+    .contact-map-video .map-credit { font-size: 12px; opacity: .8; }
 
     /* ------------------------------------------------------------------ footer */
     footer { background: var(--navy-deep); color: var(--on-dark-muted); font-size: 14.5px; }
@@ -633,7 +636,7 @@
       .hero-wordmark .lab { font-size: .34em; }
       .news-item { grid-template-columns: 1fr; gap: 6px; }
       .join-block { padding: 26px; }
-      .contact-map { height: 320px; }
+      .contact-map:not(video) { height: 320px; }
       .footer-grid { grid-template-columns: 1fr; }
     }
 
@@ -1613,14 +1616,10 @@
             </div>
           </div>
 
-          <iframe
-            class="contact-map"
-            title="전북대학교 공과대학 8호관 지도"
-            src="https://www.google.com/maps?q=%EC%A0%84%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%20%EA%B3%B5%EA%B3%BC%EB%8C%80%ED%95%99%208%ED%98%B8%EA%B4%80&amp;output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen>
-          </iframe>
+          <figure class="contact-map-video">
+            <video class="contact-map" src="figure/contact/campus-map.mp4" autoplay muted loop playsinline preload="metadata" aria-label="전북대학교 공과대학 위치 영상: 위성 지도에서 공과대학 8호관(교수 연구실 416호)과 1호관(학생 연구실 157호)으로 다가갑니다"></video>
+            <figcaption><span data-ko="남색 핀: 공과대학 8호관 416호(교수 연구실) · 청록색 핀: 공과대학 1호관 157호(학생 연구실)">Navy pin: Engineering Bldg. 8, Room 416 (professor) · Cyan pin: Engineering Bldg. 1, Room 157 (students)</span><span class="map-credit">Map © Google · Imagery © Airbus, Maxar Technologies · 3D © OpenStreetMap contributors</span></figcaption>
+          </figure>
 
           <section class="brand-kit" aria-labelledby="brand-kit-title">
             <div class="brand-kit-head">
