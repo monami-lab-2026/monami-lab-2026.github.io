@@ -12,12 +12,13 @@
       document.documentElement.dataset.theme = savedTheme || 'dark';
       document.documentElement.classList.add('page-navigation');
       const savedLanguage = localStorage.getItem('site-language');
-      document.documentElement.lang = savedLanguage || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en');
+      document.documentElement.lang = 'ko'; // English view disabled
       const hash = window.location.hash;
       if (!sessionStorage.getItem('monami-intro-seen') && (!hash || hash === '#about')) {
         document.documentElement.classList.add('intro-active');
       }
     } catch (_) {
+      document.documentElement.lang = 'ko';
       document.documentElement.dataset.theme = 'dark';
       document.documentElement.classList.add('page-navigation');
     }
@@ -816,6 +817,7 @@
     .gloss-mark circle:last-child { stroke: var(--cyan); }
     @media (max-width: 640px) { .hero-gloss { align-items: flex-start; gap: 10px; } .hero-gloss p { font-size: 14.5px; } .gloss-sub { font-size: 13.5px; } .gloss-mark { width: 32px; margin-top: 2px; } }
     /* language toggle */
+    .nav-links li:has(.lang-toggle) { display: none !important; }
     .lang-toggle {
       display: inline-flex; align-items: center; height: 38px; padding: 3px; margin-left: 6px;
       border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer;
@@ -1071,6 +1073,13 @@
             </div>
           </div>
           <div class="news-list">
+            <article class="news-item">
+              <time class="news-date" datetime="2026-11">11.2026</time>
+              <div>
+                <h3 data-ko="새로운 학생 연구원이 합류했습니다.">New student researchers join MONAMI Lab.</h3>
+                <p data-ko="2026년 11월부로 김민식, 이정우, 최민주 학생이 MONAMI 연구실에 합류했습니다. 환영합니다!">As of November 2026, Minsik Kim, Jeongwoo Lee, and Minju Choi have joined MONAMI Lab. Welcome!</p>
+              </div>
+            </article>
             <article class="news-item">
               <time class="news-date" datetime="2026-09">09.2026</time>
               <div>
