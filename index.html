@@ -12,13 +12,12 @@
       document.documentElement.dataset.theme = savedTheme || 'dark';
       document.documentElement.classList.add('page-navigation');
       const savedLanguage = localStorage.getItem('site-language');
-      document.documentElement.lang = 'ko'; // English view disabled
+      document.documentElement.lang = savedLanguage || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en');
       const hash = window.location.hash;
       if (!sessionStorage.getItem('monami-intro-seen') && (!hash || hash === '#about')) {
         document.documentElement.classList.add('intro-active');
       }
     } catch (_) {
-      document.documentElement.lang = 'ko';
       document.documentElement.dataset.theme = 'dark';
       document.documentElement.classList.add('page-navigation');
     }
@@ -817,7 +816,6 @@
     .gloss-mark circle:last-child { stroke: var(--cyan); }
     @media (max-width: 640px) { .hero-gloss { align-items: flex-start; gap: 10px; } .hero-gloss p { font-size: 14.5px; } .gloss-sub { font-size: 13.5px; } .gloss-mark { width: 32px; margin-top: 2px; } }
     /* language toggle */
-    .nav-links li:has(.lang-toggle) { display: none !important; }
     .lang-toggle {
       display: inline-flex; align-items: center; height: 38px; padding: 3px; margin-left: 6px;
       border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer;
